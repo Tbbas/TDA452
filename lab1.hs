@@ -32,15 +32,20 @@ power2 n k
 
 -- Part 4
 --
+-- A
 -- power 0 k should return 0
 -- power n 0 should return 1
 -- power for arbitrary n and k should be equal to power1 and power2
 -- power for odd k should be equal to power1 and power2 for odd k,
   --  seeing as this is where they differ
 
+-- B
 prop_power n k = power n k == power1 n k && power n k == power2 n k && power n k == n^k
+
+-- D
 
 prop_power' n k = k >= 0 ==> (power n k == power1 n k) && (power n k == power2 n k) && (power n k == n^k)
 
+-- C
 
 test_power =(power 0 3 == 0) && (power 3 0 == 1) && (prop_power 4 4) && (prop_power 4 5)
