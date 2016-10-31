@@ -12,7 +12,7 @@ power n k         = n * power n (k-1)
 -- Part 2
 
 nListK :: Integer -> Integer -> [Integer]
-nListK n k | k < 0 = nListK n (abs k)
+nListK n k | k < 0 = error "power: negative argument"
 nListK n 0         = []
 nListK n k         = n : nListK n (k - 1)
 
@@ -31,7 +31,7 @@ power2 n k
         | otherwise = n * power2 n (k - 1)
 
 -- Part 4
-
+--
 -- power 0 k should return 0
 -- power n 0 should return 1
 -- power for arbitrary n and k should be equal to power1 and power2
