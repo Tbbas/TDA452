@@ -106,49 +106,18 @@ winner player bank
       | realHandValue player  >  realHandValue bank = Guest
       | otherwise                                   = Bank
 
+prop_winner :: Card -> Bool
+prop_winner card = (winner (Add card player_21_Ace_low) bank_21_Ace_low  == Bank)
+                && (winner player_21_Ace_low (Add card bank_21_Ace_low) == Guest)
+
+
+
+
+
+-- Test Hands
 player_21 = Add (Card Ace Spades) (Add (Card Jack Hearts) Empty)
 player_21_Ace_low = Add (Card Ace Spades) (Add (Card Jack Hearts) (Add (Card Queen Clubs) Empty))
 
 bank_20 = Add (Card Queen Spades) (Add (Card Jack Hearts) Empty)
 bank_20_Ace_low = Add (Card (Numeric 9) Spades) (Add (Card Jack Hearts) (Add (Card Ace Clubs) Empty))
 bank_21_Ace_low = Add (Card Ace Spades) (Add (Card Jack Hearts) (Add (Card Queen Clubs) Empty))
-
--- prop_winner :: Hand -> Hand -> Bool
--- prop_winner player bank
---             | (realHandValue player == realHandValue bank) = ((winner player bank) == Bank)
---             | (realHandValue player > realHandValue bank) = ((winner player bank) == Guest)
---             | otherwise = ((winner player bank) == Bank)
-
-prop_winner :: Card -> Bool
-prop_winner card = (winner (Add card player_21_Ace_low) bank_21_Ace_low  == Bank)
-                && (winner player_21_Ace_low (Add card bank_21_Ace_low) == Guest)
-
-
--- On top of operator
-
-(<+) :: Hand -> Hand -> Hand
-(<+) Empty            hand  = hand
-(<+) hand             Empty = hand
-(<+) (Add card Empty) hand2 = Add card hand2
-(<+) (Add card hand1) hand2 = Add card ((<+) hand1 hand2)
-
-prop_onTopOf_assoc :: Hand -> Hand -> Hand -> Bool
-prop_onTopOf_assoc p1 p2 p3 =
-    p1<+(p2<+p3) == (p1<+p2)<+p3
-
-prop_size_onTopOf :: Hand -> Hand -> Bool
-prop_size_onTopOf hand1 hand2 = size ((<+) hand1 hand2 ) == size hand1 + size hand2
-
--- full deck
-
-fullDeck :: Hand
-fullDeck = undefined
-
-suitHand :: Suit -> Hand
-suitHand suit = undefined
-
-draw :: Hand -> Hand -> (Hand,Hand)
-draw = undefined
-
-first :: (a, b) -> a
-first = undefined
