@@ -72,8 +72,8 @@ gameOver (Add card hand)
 
 handValue' :: Hand -> Integer
 handValue' Empty = 0
-handValue' (Add (Card Ace _) hand) = 1 + handValue' hand
-handValue' (Add card hand) = valueCard card + handValue' hand
+handValue' (Add card hand) = ((valueCard card + valueHand hand) - (10*(numberOfAces (Add card hand))))
+
 
 realHandValue :: Hand -> Integer
 realHandValue hand
@@ -120,7 +120,7 @@ bank_21_Ace_low = Add (Card Ace Spades) (Add (Card Jack Hearts) (Add (Card Queen
 --             | otherwise = ((winner player bank) == Bank)
 
 prop_winner :: Card -> Bool
-prop_winner card = (winner (Add card player_21_Ace_low) bank_21_Ace_low  == Bank) && (winner player_21_Ace_low (Add card bank_21_Ace_low) == Guest) 
+prop_winner card = (winner (Add card player_21_Ace_low) bank_21_Ace_low  == Bank) && (winner player_21_Ace_low (Add card bank_21_Ace_low) == Guest)
 
 
 -- On top of operator
