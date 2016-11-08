@@ -56,11 +56,6 @@ numberOfAce Empty = 0
 numberOfAce (Add (Card Ace _) hand) = 1 + numberOfAce hand
 numberOfAce (Add card hand) = numberOfAce hand
 
-handValue :: Hand -> Integer
-handValue Empty = 0
-handValue (Add card hand) = valueCard card + handValue hand
-
-
 -- Given a hand, Calculate if a player goes bust
 -- Test Case:
 --  True if given a bust hand
@@ -96,13 +91,15 @@ prop_gameOver' c = gameOver (Add c player_21_Ace_low)
 prop_gameOver'' :: Card -> Bool
 prop_gameOver'' c = gameOver(Add c Empty) == False
 
--- winner
+-- Given a hand, returns Guest if the first hand wins, returns Bank if the second hand wins.
+-- The second hand wins if the hands are equal.
 -- Test Case:
 --  A bust hand cannot win
 --  if given the same hand as both argument?
---  powdjgpawijgpgiaworigho'iharog
 
 winner :: Hand -> Hand -> Player
+winner Empty _                                      = Bank
+winner _ Empty                                      = Guest
 winner player bank
       | gameOver player                             = Bank
       | gameOver bank                               = Guest
@@ -114,7 +111,16 @@ player_21_Ace_low = Add (Card Ace Spades) (Add (Card Jack Hearts) (Add (Card Que
 
 bank_20 = Add (Card Queen Spades) (Add (Card Jack Hearts) Empty)
 bank_20_Ace_low = Add (Card (Numeric 9) Spades) (Add (Card Jack Hearts) (Add (Card Ace Clubs) Empty))
+bank_21_Ace_low = Add (Card Ace Spades) (Add (Card Jack Hearts) (Add (Card Queen Clubs) Empty))
 
+-- prop_winner :: Hand -> Hand -> Bool
+-- prop_winner player bank
+--             | (realHandValue player == realHandValue bank) = ((winner player bank) == Bank)
+--             | (realHandValue player > realHandValue bank) = ((winner player bank) == Guest)
+--             | otherwise = ((winner player bank) == Bank)
+
+prop_winner :: Card -> Bool
+prop_winner card = (winner (Add card player_21_Ace_low) bank_21_Ace_low  == Bank) && (winner player_21_Ace_low (Add card bank_21_Ace_low) == Guest) 
 
 
 -- On top of operator
