@@ -11,15 +11,10 @@ power n k         = n * power n (k-1)
 
 -- Part 2
 
-nListK :: Integer -> Integer -> [Integer]
-nListK n k | k < 0 = error "power: negative argument"
-nListK n 0         = 1 :[]
-nListK n k         = n : nListK n (k - 1)
-
 power1 :: Integer -> Integer -> Integer
 power1 n k
           | k < 0     = error "power: negative argument"
-          | otherwise = product (nListK n k)
+          | otherwise = product (take (fromIntegral k) (repeat n))
 
 -- Part 3
 
