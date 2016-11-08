@@ -34,7 +34,10 @@ power2 n k
 --                           therefor it is resonable to test that this holds
 -- power for arbitrary n and k should be equal to power1 and power2
 -- power for odd k should be equal to power1 and power2 for odd k,
-  --  seeing as this is where they differ
+--  seeing as this is where they differ
+-- power for even k should be equal to power1 and power2 for even k,
+--  seeing as this is where they differ
+-- power for negative n should be equal to power1 and power2
 
 -- B
 prop_powers :: Integer -> Integer -> Bool
@@ -49,4 +52,4 @@ prop_powers' n k
 
 -- C
 test_powers :: Bool
-test_power = prop_powers 0 3 && prop_powers 3 0 && (prop_powers 4 4) && (prop_powers 4 5) && prop_powers (-1) 4
+test_powers = prop_powers 0 3 && prop_powers 3 0 && (prop_powers 4 4) && (prop_powers 4 5) && (prop_powers (-1) 4)
