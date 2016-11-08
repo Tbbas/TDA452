@@ -56,7 +56,12 @@ numberOfAce Empty = 0
 numberOfAce (Add (Card Ace _) hand) = 1 + numberOfAce hand
 numberOfAce (Add card hand) = numberOfAce hand
 
--- (Given a sorted hand ?)Calculate if a player goes busthand
+handValue :: Hand -> Integer
+handValue Empty = 0
+handValue (Add card hand) = valueCard card + handValue hand
+
+
+-- Given a hand, Calculate if a player goes bust
 -- Test Case:
 --  True if given a bust hand
 --  a bust hand cannot beat a non-bust hand (no other hand?)
@@ -79,6 +84,17 @@ realHandValue :: Hand -> Integer
 realHandValue hand
                 | handValue hand > 21 = handValue' hand
                 | otherwise = handValue hand
+
+prop_gameOver :: Hand -> Bool
+prop_gameOver h | realHandValue h > 21 = gameOver h
+prop_gameOver h = gameOver h == False
+
+
+prop_gameOver' :: Card -> Bool
+prop_gameOver' c = gameOver (Add c player_21_Ace_low)
+
+prop_gameOver'' :: Card -> Bool
+prop_gameOver'' c = gameOver(Add c Empty) == False
 
 -- winner
 -- Test Case:
