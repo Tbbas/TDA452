@@ -1,4 +1,4 @@
-import Test.QuickCheck
+-- import Test.QuickCheck
 
 power :: Integer -> Integer -> Integer
 power n k | k < 0 = error "power: negative argument"
@@ -28,8 +28,10 @@ power2 n k
 -- Part 4
 --
 -- A
--- power 0 k should return 0
--- power n 0 should return 1
+-- power 0 k should return 0, there is no k such that any power function returns something else than 0 given n=0,
+--                           therefor it is resonable to test that this holds
+-- power n 0 should return 1, there is no n such that any power function returns something else than 1 given k=0
+--                           therefor it is resonable to test that this holds
 -- power for arbitrary n and k should be equal to power1 and power2
 -- power for odd k should be equal to power1 and power2 for odd k,
   --  seeing as this is where they differ
@@ -41,10 +43,10 @@ prop_powers n k = power n k == power1 n k && power n k == power2 n k
 -- D
 
 prop_powers' :: Integer -> Integer -> Bool
-prop_power' n k
-    | k >= 0 = (power n k == power1 n k) && (power n k == power2 n k) && (power n k == n^k)
-    | otherwise = prop_power' n (abs k)
+prop_powers' n k
+    | k >= 0 = prop_powers n k
+    | otherwise = prop_powers n (abs k)
 
 -- C
 test_powers :: Bool
-test_power =(power 0 3 == 0) && (power 3 0 == 1) && (prop_power 4 4) && (prop_power 4 5)
+test_power = prop_powers 0 3 && prop_powers 3 0 && (prop_powers 4 4) && (prop_powers 4 5) && prop_powers (-1) 4
