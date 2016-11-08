@@ -68,7 +68,7 @@ gameOver Empty = False
 gameOver (Add card Empty) = False
 gameOver (Add card hand)
           | (valueCard card) + (handValue hand) <= 21 = False
-          | otherwise  = handValue' (Add card hand) > 21 -- value of hand + card over 21 -> bust | must handle Ace case
+          | otherwise  = handValue' (Add card hand) > 21
 
 handValue' :: Hand -> Integer
 handValue' Empty = 0
@@ -120,7 +120,8 @@ bank_21_Ace_low = Add (Card Ace Spades) (Add (Card Jack Hearts) (Add (Card Queen
 --             | otherwise = ((winner player bank) == Bank)
 
 prop_winner :: Card -> Bool
-prop_winner card = (winner (Add card player_21_Ace_low) bank_21_Ace_low  == Bank) && (winner player_21_Ace_low (Add card bank_21_Ace_low) == Guest)
+prop_winner card = (winner (Add card player_21_Ace_low) bank_21_Ace_low  == Bank)
+                && (winner player_21_Ace_low (Add card bank_21_Ace_low) == Guest)
 
 
 -- On top of operator
