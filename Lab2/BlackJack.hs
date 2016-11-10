@@ -18,11 +18,11 @@ prop_emptyHand = size emptyHand == 0
 --  Two hands of the same cards but different suits should have the same value
 --  The value of the hand cannot be smaller than the size of the hand
 --  The value of a empty hand should be 0
-handValue :: Hand -> Integer
-handValue Empty = 0
-handValue (Add card hand) = valueCard card + handValue hand
+valueHand :: Hand -> Integer
+valueHand Empty = 0
+valueHand (Add card hand) = valueCard card + valueHand hand
 
--- Tests handValue
+-- Tests valueHand
 handHearts :: Hand
 handHearts = Add (Card (Numeric 5) Hearts)
   (Add (Card Queen Hearts) Empty)
@@ -31,11 +31,11 @@ handSpades :: Hand
 handSpades = Add (Card (Numeric 5) Spades)
   (Add (Card Queen Spades) Empty)
 
-prop_handValue1 :: Bool
-prop_handValue1 =  handValue handHearts == handValue handSpades
+prop_valueHand1 :: Bool
+prop_valueHand1 =  valueHand handHearts == valueHand handSpades
 
-prop_handValue2 :: Hand -> Bool
-prop_handValue2 hand = size hand <= handValue hand
+prop_valueHand2 :: Hand -> Bool
+prop_valueHand2 hand = size hand <= valueHand hand
 
 
 -- given a rank calculates the value
@@ -67,18 +67,18 @@ gameOver :: Hand -> Bool
 gameOver Empty = False
 gameOver (Add card Empty) = False
 gameOver (Add card hand)
-          | (valueCard card) + (handValue hand) <= 21 = False
-          | otherwise  = handValue' (Add card hand) > 21
+          | (valueCard card) + (valueHand hand) <= 21 = False
+          | otherwise  = valueHand' (Add card hand) > 21
 
-handValue' :: Hand -> Integer
-handValue' Empty = 0
-handValue' (Add card hand) = ((valueCard card + valueHand hand) - (10*(numberOfAces (Add card hand))))
+valueHand' :: Hand -> Integer
+valueHand' Empty = 0
+valueHand' (Add card hand) = ((valueCard card + valueHand hand) - (10*(numberOfAce (Add card hand))))
 
 
 realHandValue :: Hand -> Integer
 realHandValue hand
-                | handValue hand > 21 = handValue' hand
-                | otherwise = handValue hand
+                | valueHand hand > 21 = valueHand' hand
+                | otherwise = valueHand hand
 
 prop_gameOver :: Hand -> Bool
 prop_gameOver h | realHandValue h > 21 = gameOver h
@@ -116,7 +116,7 @@ prop_winner card = (winner (Add card player_21_Ace_low) bank_21_Ace_low  == Bank
 (<+) Empty            hand  = hand
 (<+) hand             Empty = hand
 (<+) (Add card Empty) hand2 = Add card hand2
-(<+) (Add card hand1) hand2 = Add card ((<+) hand1 hand2)
+(<+) (Add card hand1) hand2 = Add card (hand1 <+ hand2)
 
 prop_onTopOf_assoc :: Hand -> Hand -> Hand -> Bool
 prop_onTopOf_assoc p1 p2 p3 =
