@@ -154,8 +154,8 @@ suitHand suit = Empty
 -- Draw
 
 draw :: Hand -> Hand -> (Hand,Hand)
-draw hand Empty = error "draw: The deck is empty"
-draw hand (Add cardFromDeck deck) = (deck, (Add cardFromDeck hand))
+draw Empty hand = error "draw: The deck is empty"
+draw (Add cardFromDeck deck) hand = (deck, (Add cardFromDeck hand))
 
 -- Bank
 --  hand value of playBank cannot be less than 16
