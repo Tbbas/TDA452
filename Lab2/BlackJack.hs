@@ -173,6 +173,10 @@ playBank' hand deck
 shuffle :: StdGen -> Hand -> Hand
 shuffle gen hand =
 
+drawNthCard :: Integer -> Hand -> Card
+drawNthCard 1 (Add card hand) = card
+drawNthCard n (Add card hand) = drawNthCard (n-1) hand
+
 -- Test Hands
 player_21 = Add (Card Ace Spades) (Add (Card Jack Hearts) Empty)
 player_21_Ace_low = Add (Card Ace Spades) (Add (Card Jack Hearts) (Add (Card Queen Clubs) Empty))
