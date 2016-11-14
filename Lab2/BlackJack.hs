@@ -1,29 +1,44 @@
-module BlackJack_Jax where
+module BlackJack where
 import Cards
 import RunGame
-import Test.QuickCheck
+import Test.QuickCheck hiding (shuffle)
 import System.Random
+
+implementation = Interface
+  { iEmpty    = empty
+  , iFullDeck = fullDeck
+  , iValue    = value
+  , iGameOver = gameOver
+  , iWinner   = winner
+  , iDraw     = draw
+  , iPlayBank = playBank
+  , iShuffle  = shuffle
+  }
+
+
+main :: IO ()
+main = runGame implementation
 
 -- Create an empty hand
 -- Test Cases:
 --  An empty hand has size 0
 
-emptyHand :: Hand
-emptyHand = Empty
+empty :: Hand
+empty = Empty
 
-prop_emptyHand :: Bool
-prop_emptyHand = size emptyHand == 0
+prop_empty :: Bool
+prop_empty = size empty == 0
 
 -- Calculate the value of a hand
 -- Test Cases:
 --  Two hands of the same cards but different suits should have the same value
 --  The value of the hand cannot be smaller than the size of the hand
 --  The value of a empty hand should be 0
-valueHand :: Hand -> Integer
-valueHand Empty = 0
-valueHand (Add card hand) = valueCard card + valueHand hand
+value :: Hand -> Integer
+value Empty = 0
+value hand = value hand
 
--- Tests valueHand
+-- Tests value
 handHearts :: Hand
 handHearts = Add (Card (Numeric 5) Hearts)
   (Add (Card Queen Hearts) Empty)
@@ -32,11 +47,11 @@ handSpades :: Hand
 handSpades = Add (Card (Numeric 5) Spades)
   (Add (Card Queen Spades) Empty)
 
-prop_valueHand1 :: Bool
-prop_valueHand1 =  valueHand handHearts == valueHand handSpades
+prop_value1 :: Bool
+prop_value1 =  value handHearts == value handSpades
 
-prop_valueHand2 :: Hand -> Bool
-prop_valueHand2 hand = size hand <= valueHand hand
+prop_value2 :: Hand -> Bool
+prop_value2 hand = size hand <= value hand
 
 
 -- given a rank calculates the value
@@ -66,25 +81,22 @@ numberOfAce (Add card hand) = numberOfAce hand
 
 gameOver :: Hand -> Bool
 gameOver Empty = False
-gameOver hand = valueHand' hand > 21
+gameOver (Add card hand) = value' (Add card hand) > 21
 
-valueHand' :: Hand -> Integer
-valueHand' Empty = 0
-valueHand' (Add card hand) = ((valueCard card + valueHand hand) - (10*(numberOfAce (Add card hand))))
+value' :: Hand -> Integer
+value' Empty = 0
+value' hand = value hand - (10*(numberOfAce hand))
 
 
-realHandValue :: Hand -> Integer
-realHandValue hand
-                | valueHand hand > 21 = valueHand' hand
-                | otherwise = valueHand hand
+realValue :: Hand -> Integer
+realValue hand
+                | value hand > 21 = value' hand
+                | otherwise = value hand
 
 prop_gameOver :: Hand -> Bool
-prop_gameOver h | realHandValue h > 21 = gameOver h
+prop_gameOver h | realValue h > 21 = gameOver h
 prop_gameOver h = gameOver h == False
 
-
-prop_gameOver' :: Card -> Bool
-prop_gameOver' c = gameOver (Add c player_21_Ace_low)
 
 prop_gameOver'' :: Card -> Bool
 prop_gameOver'' c = gameOver(Add c Empty) == False
@@ -99,7 +111,7 @@ winner :: Hand -> Hand -> Player
 winner player bank
       | gameOver player                             = Bank
       | gameOver bank                               = Guest
-      | realHandValue player  >  realHandValue bank = Guest
+      | realValue player  >  realValue bank         = Guest
       | otherwise                                   = Bank
 
 -- On top of operator
@@ -153,7 +165,7 @@ playBank deck = playBank' Empty deck
 
 playBank' :: Hand -> Hand -> Hand
 playBank' hand deck
-            | valueHand hand >= 16 = hand
+            | value hand >= 16 = hand
             | otherwise = playBank' hand' deck'
           where
             handAndDeck = draw hand deck
@@ -161,9 +173,9 @@ playBank' hand deck
             hand'       = snd handAndDeck
 
 --Shuffle
-shuffle' :: StdGen -> Hand -> Hand
-shuffle' gen Empty  = Empty
-shuffle' gen hand = Add card' (shuffle' g1 hand')
+shuffle :: StdGen -> Hand -> Hand
+shuffle gen Empty  = Empty
+shuffle gen hand = Add card' (shuffle g1 hand')
               where
                 card' = drawNthCard n1 hand
                 hand' = deleteCard card' hand
@@ -192,9 +204,9 @@ c `belongsTo` (Add c' h) = c == c' || c `belongsTo` h
 --helper method for testing shuffle
 prop_shuffle_sameCards :: StdGen -> Card -> Hand -> Bool
 prop_shuffle_sameCards g c h =
-    c `belongsTo` h == c `belongsTo` shuffle' g h
+    c `belongsTo` h == c `belongsTo` shuffle g h
 
 -- Checks if sizes are the same after shuffle
 prop_size_shuffle :: StdGen -> Hand -> Bool
 prop_size_shuffle g Empty = True
-prop_size_shuffle g hand = size hand == size (shuffle' g hand )
+prop_size_shuffle g hand = size hand == size (shuffle g hand )
