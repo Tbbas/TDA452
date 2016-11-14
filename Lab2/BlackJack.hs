@@ -184,10 +184,13 @@ drawNthCard _ Empty = error "Empty hand. Aborting"
 drawNthCard 1 (Add card hand) = card
 drawNthCard n (Add card hand) = drawNthCard (n-1) hand
 
+-- given a hand and a card deletes that card from hand. If the card do not belong
+-- the hand then return the hand unchanged.
 deleteCard :: Card -> Hand -> Hand
+deleteCard _ Empty = Empty
 deleteCard card (Add card' hand)
                   | card == card' = hand
-                  | otherwise = (Add card' (deleteCard card hand))
+                  | otherwise     = (Add card' (deleteCard card hand))
 
 -- Helper method
 belongsTo :: Card -> Hand -> Bool
