@@ -171,12 +171,17 @@ playBank' hand deck
 
 --Shuffle
 shuffle :: StdGen -> Hand -> Hand
-shuffle gen hand =
+shuffle gen hand = undefined
 
 -- Draws the nth card (from the top)
 drawNthCard :: Integer -> Hand -> Card
 drawNthCard 1 (Add card hand) = card
 drawNthCard n (Add card hand) = drawNthCard (n-1) hand
+
+deleteCard :: Card -> Hand -> Hand
+deleteCard card (Add card' hand)
+                  | card == card' = hand
+                  | otherwise = (Add card' (deleteCard card hand))
 
 -- Test Hands
 player_21 = Add (Card Ace Spades) (Add (Card Jack Hearts) Empty)
