@@ -2,7 +2,6 @@ module BlackJack_Jax where
 import Cards
 import RunGame
 import Test.QuickCheck
-import System.Random
 
 -- Create an empty hand
 -- Test Cases:
@@ -73,7 +72,7 @@ gameOver (Add card hand)
 
 valueHand' :: Hand -> Integer
 valueHand' Empty = 0
-valueHand' (Add card hand) = ((valueCard card + valueHand hand) - (10*(numberOfAce (Add card hand))))
+valueHand' hand = valueHand hand - (10*(numberOfAce hand))
 
 
 realHandValue :: Hand -> Integer
@@ -111,67 +110,9 @@ prop_winner :: Card -> Bool
 prop_winner card = (winner (Add card player_21_Ace_low) bank_21_Ace_low  == Bank)
                 && (winner player_21_Ace_low (Add card bank_21_Ace_low) == Guest)
 
--- On top of operator
 
-(<+) :: Hand -> Hand -> Hand
-(<+) Empty            hand  = hand
-(<+) hand             Empty = hand
-(<+) (Add card Empty) hand2 = Add card hand2
-(<+) (Add card hand1) hand2 = Add card (hand1 <+ hand2)
 
-prop_onTopOf_assoc :: Hand -> Hand -> Hand -> Bool
-prop_onTopOf_assoc p1 p2 p3 =
-    p1<+(p2<+p3) == (p1<+p2)<+p3
 
-prop_size_onTopOf :: Hand -> Hand -> Bool
-prop_size_onTopOf hand1 hand2 = size (hand1 <+ hand2 ) == size hand1 + size hand2
-
--- full deck
-
-fullDeck :: Hand
-fullDeck = suitHand Spades <+ suitHand Hearts
-          <+ suitHand Clubs <+ suitHand Diamonds
-
-suitHand :: Suit -> Hand
-suitHand suit = Empty
-        <+ Add (Card (Numeric 2) suit) Empty
-        <+ Add (Card (Numeric 3) suit) Empty
-        <+ Add (Card (Numeric 4) suit) Empty
-        <+ Add (Card (Numeric 5) suit) Empty
-        <+ Add (Card (Numeric 6) suit) Empty
-        <+ Add (Card (Numeric 7) suit) Empty
-        <+ Add (Card (Numeric 8) suit) Empty
-        <+ Add (Card (Numeric 9) suit) Empty
-        <+ Add (Card (Numeric 10) suit) Empty
-        <+ Add (Card Jack suit) Empty
-        <+ Add (Card Queen suit) Empty
-        <+ Add (Card King suit) Empty
-        <+ Add (Card Ace suit) Empty
-
--- Draw
-
-draw :: Hand -> Hand -> (Hand,Hand)
-draw hand Empty = error "draw: The deck is empty"
-draw hand (Add cardFromDeck deck) = (deck, (Add cardFromDeck hand))
-
--- Bank
---  hand value of playBank cannot be less than 16
-
-playBank :: Hand -> Hand
-playBank deck = playBank' Empty deck
-
-playBank' :: Hand -> Hand -> Hand
-playBank' hand deck
-            | valueHand hand >= 16 = hand
-            | otherwise = playBank' hand' deck'
-          where
-            handAndDeck = draw hand deck
-            deck'       = fst handAndDeck
-            hand'       = snd handAndDeck
-
---Shuffle
-shuffle :: StdGen -> Hand -> Hand
-shuffle gen hand =
 
 -- Test Hands
 player_21 = Add (Card Ace Spades) (Add (Card Jack Hearts) Empty)
