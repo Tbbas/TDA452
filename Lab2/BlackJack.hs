@@ -170,11 +170,17 @@ playBank' hand deck
             hand'       = snd handAndDeck
 
 --Shuffle
-shuffle :: StdGen -> Hand -> Hand
-shuffle gen hand = undefined
+shuffle' :: StdGen -> Hand -> Hand
+shuffle' gen Empty  = Empty
+shuffle' gen hand = Add card' (shuffle' g1 hand')
+              where
+                card' = drawNthCard n1 hand
+                hand' = deleteCard card' hand
+                (n1,g1) = randomR (1, size hand) gen
 
 -- Draws the nth card (from the top)
 drawNthCard :: Integer -> Hand -> Card
+drawNthCard _ Empty = error "suuug"
 drawNthCard 1 (Add card hand) = card
 drawNthCard n (Add card hand) = drawNthCard (n-1) hand
 
@@ -182,6 +188,20 @@ deleteCard :: Card -> Hand -> Hand
 deleteCard card (Add card' hand)
                   | card == card' = hand
                   | otherwise = (Add card' (deleteCard card hand))
+
+-- Helper method
+belongsTo :: Card -> Hand -> Bool
+c `belongsTo` Empty = False
+c `belongsTo` (Add c' h) = c == c' || c `belongsTo` h
+
+
+--helper method for testing shuffle
+prop_shuffle_sameCards :: StdGen -> Card -> Hand -> Bool
+prop_shuffle_sameCards g c h =
+    c `belongsTo` h == c `belongsTo` shuffle' g h
+
+
+
 
 -- Test Hands
 player_21 = Add (Card Ace Spades) (Add (Card Jack Hearts) Empty)
