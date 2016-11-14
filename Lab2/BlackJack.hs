@@ -173,6 +173,7 @@ playBank' hand deck
 shuffle :: StdGen -> Hand -> Hand
 shuffle gen hand =
 
+-- Draws the nth card (from the top)
 drawNthCard :: Integer -> Hand -> Card
 drawNthCard 1 (Add card hand) = card
 drawNthCard n (Add card hand) = drawNthCard (n-1) hand
