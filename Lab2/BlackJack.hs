@@ -180,7 +180,7 @@ shuffle' gen hand = Add card' (shuffle' g1 hand')
 
 -- Draws the nth card (from the top)
 drawNthCard :: Integer -> Hand -> Card
-drawNthCard _ Empty = error "suuug"
+drawNthCard _ Empty = error "Empty hand. Aborting"
 drawNthCard 1 (Add card hand) = card
 drawNthCard n (Add card hand) = drawNthCard (n-1) hand
 
@@ -199,6 +199,11 @@ c `belongsTo` (Add c' h) = c == c' || c `belongsTo` h
 prop_shuffle_sameCards :: StdGen -> Card -> Hand -> Bool
 prop_shuffle_sameCards g c h =
     c `belongsTo` h == c `belongsTo` shuffle' g h
+
+-- Checks if sizes are the same after shuffle
+prop_size_shuffle :: StdGen -> Hand -> Bool
+prop_size_shuffle g Empty = True
+prop_size_shuffle g hand = size hand == size (shuffle' g hand )
 
 
 
