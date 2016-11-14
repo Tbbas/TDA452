@@ -66,10 +66,7 @@ numberOfAce (Add card hand) = numberOfAce hand
 
 gameOver :: Hand -> Bool
 gameOver Empty = False
-gameOver (Add card Empty) = False
-gameOver (Add card hand)
-          | (valueCard card) + (valueHand hand) <= 21 = False
-          | otherwise  = valueHand' (Add card hand) > 21
+gameOver hand = valueHand' hand > 21
 
 valueHand' :: Hand -> Integer
 valueHand' Empty = 0
@@ -99,17 +96,11 @@ prop_gameOver'' c = gameOver(Add c Empty) == False
 --  if given the same hand as both argument?
 
 winner :: Hand -> Hand -> Player
-winner Empty _                                      = Bank
-winner _ Empty                                      = Guest
 winner player bank
       | gameOver player                             = Bank
       | gameOver bank                               = Guest
       | realHandValue player  >  realHandValue bank = Guest
       | otherwise                                   = Bank
-
-prop_winner :: Card -> Bool
-prop_winner card = (winner (Add card player_21_Ace_low) bank_21_Ace_low  == Bank)
-                && (winner player_21_Ace_low (Add card bank_21_Ace_low) == Guest)
 
 -- On top of operator
 
@@ -207,14 +198,3 @@ prop_shuffle_sameCards g c h =
 prop_size_shuffle :: StdGen -> Hand -> Bool
 prop_size_shuffle g Empty = True
 prop_size_shuffle g hand = size hand == size (shuffle' g hand )
-
-
-
-
--- Test Hands
-player_21 = Add (Card Ace Spades) (Add (Card Jack Hearts) Empty)
-player_21_Ace_low = Add (Card Ace Spades) (Add (Card Jack Hearts) (Add (Card Queen Clubs) Empty))
-
-bank_20 = Add (Card Queen Spades) (Add (Card Jack Hearts) Empty)
-bank_20_Ace_low = Add (Card (Numeric 9) Spades) (Add (Card Jack Hearts) (Add (Card Ace Clubs) Empty))
-bank_21_Ace_low = Add (Card Ace Spades) (Add (Card Jack Hearts) (Add (Card Queen Clubs) Empty))
