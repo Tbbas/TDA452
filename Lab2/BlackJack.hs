@@ -36,7 +36,7 @@ prop_empty = size empty == 0
 --  The value of a empty hand should be 0
 value :: Hand -> Integer
 value Empty = 0
-value hand = value hand
+value (Add card hand) = valueCard card + value hand
 
 -- Tests value
 handHearts :: Hand
