@@ -19,21 +19,22 @@ implementation = Interface
 main :: IO ()
 main = runGame implementation
 
+-- hand2
+{-
+size hand2
+  = size (Add (Card (Numeric 2) Hearts)
+              (Add (Card Jack Spades) Empty))
+  = 1 + size (Add (Card Jack Spades) Empty)
+  = 1 + (1 + size Empty)
+  = 2
+-}
+
 -- Create an empty hand
--- Test Cases:
---  An empty hand has size 0
 
 empty :: Hand
 empty = Empty
 
-prop_empty :: Bool
-prop_empty = size empty == 0
-
 -- Calculate the value of a hand
--- Test Cases:
---  Two hands of the same cards but different suits should have the same value
---  The value of the hand cannot be smaller than the size of the hand
---  The value of a empty hand should be 0
 value :: Hand -> Integer
 value Empty = 0
 value (Add card hand) = valueCard card + value hand
@@ -46,12 +47,6 @@ handHearts = Add (Card (Numeric 5) Hearts)
 handSpades :: Hand
 handSpades = Add (Card (Numeric 5) Spades)
   (Add (Card Queen Spades) Empty)
-
-prop_value1 :: Bool
-prop_value1 =  value handHearts == value handSpades
-
-prop_value2 :: Hand -> Bool
-prop_value2 hand = size hand <= value hand
 
 
 -- given a rank calculates the value
@@ -73,11 +68,6 @@ numberOfAce (Add (Card Ace _) hand) = 1 + numberOfAce hand
 numberOfAce (Add card hand) = numberOfAce hand
 
 -- Given a hand, Calculate if a player goes bust
--- Test Case:
---  True if given a bust hand
---  a bust hand cannot beat a non-bust hand (no other hand?)
---  a hand of value 21 + a card should go bust
---  a hand of size 1 or smaller cannot go bust
 
 gameOver :: Hand -> Bool
 gameOver Empty = False
@@ -93,19 +83,8 @@ realValue hand
                 | value hand > 21 = value' hand
                 | otherwise = value hand
 
-prop_gameOver :: Hand -> Bool
-prop_gameOver h | realValue h > 21 = gameOver h
-prop_gameOver h = gameOver h == False
-
-
-prop_gameOver'' :: Card -> Bool
-prop_gameOver'' c = gameOver(Add c Empty) == False
-
 -- Given a hand, returns Guest if the first hand wins, returns Bank if the second hand wins.
 -- The second hand wins if the hands are equal.
--- Test Case:
---  A bust hand cannot win
---  if given the same hand as both argument?
 
 winner :: Hand -> Hand -> Player
 winner player bank
@@ -161,10 +140,10 @@ draw (Add cardFromDeck deck) hand = (deck, (Add cardFromDeck hand))
 --  hand value of playBank cannot be less than 16
 
 playBank :: Hand -> Hand
-playBank deck = playBank' Empty deck
+playBank deck = playBank' deck Empty
 
 playBank' :: Hand -> Hand -> Hand
-playBank' hand deck
+playBank'  deck hand
             | value hand >= 16 = hand
             | otherwise = playBank' hand' deck'
           where
