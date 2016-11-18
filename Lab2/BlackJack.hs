@@ -39,6 +39,7 @@ value :: Hand -> Integer
 value Empty = 0
 value (Add card hand) = valueCard card + value hand
 
+
 -- Tests value
 handHearts :: Hand
 handHearts = Add (Card (Numeric 5) Hearts)
@@ -147,9 +148,9 @@ playBank'  deck hand
             | value hand >= 16 = hand
             | otherwise = playBank' hand' deck'
           where
-            handAndDeck = draw hand deck
-            deck'       = fst handAndDeck
-            hand'       = snd handAndDeck
+            handAndDeck = draw deck hand
+            deck'       = snd handAndDeck
+            hand'       = fst handAndDeck
 
 --Shuffle
 shuffle :: StdGen -> Hand -> Hand
