@@ -34,23 +34,22 @@ size hand2
 empty :: Hand
 empty = Empty
 
--- Calculate the value of a hand
+
+-- Calculates the value of a hand, either by seeing the aces as 11 or seeing them as 1.
 value :: Hand -> Integer
-value Empty = 0
-value (Add card hand) = valueCard card + value hand
+value hand
+                | normalValue hand > 21 = alternativeHandValue hand
+                | otherwise = normalValue hand
 
 
--- Tests value
-handHearts :: Hand
-handHearts = Add (Card (Numeric 5) Hearts)
-  (Add (Card Queen Hearts) Empty)
-
-handSpades :: Hand
-handSpades = Add (Card (Numeric 5) Spades)
-  (Add (Card Queen Spades) Empty)
+-- Calculates the value of a hand when all Aces are seen as 11
+normalValue :: Hand -> Integer
+normalValue Empty = 0
+normalValue (Add card hand) = valueCard card + normalValue hand
 
 
--- given a rank calculates the value
+
+-- Given a rank calculates the value
 valueRank :: Rank -> Integer
 valueRank (Numeric rank) = rank
 valueRank Jack = 10
@@ -72,17 +71,15 @@ numberOfAce (Add card hand) = numberOfAce hand
 
 gameOver :: Hand -> Bool
 gameOver Empty = False
-gameOver (Add card hand) = value' (Add card hand) > 21
+gameOver (Add card hand) = alternativeHandValue (Add card hand) > 21
 
-value' :: Hand -> Integer
-value' Empty = 0
-value' hand = value hand - (10*(numberOfAce hand))
+-- Calculates the value of a hand when the values of Ace=1
+alternativeHandValue :: Hand -> Integer
+alternativeHandValue Empty = 0
+alternativeHandValue hand = normalValue hand - (10*(numberOfAce hand))
 
 
-realValue :: Hand -> Integer
-realValue hand
-                | value hand > 21 = value' hand
-                | otherwise = value hand
+
 
 -- Given a hand, returns Guest if the first hand wins, returns Bank if the second hand wins.
 -- The second hand wins if the hands are equal.
@@ -91,11 +88,10 @@ winner :: Hand -> Hand -> Player
 winner player bank
       | gameOver player                             = Bank
       | gameOver bank                               = Guest
-      | realValue player  >  realValue bank         = Guest
+      | value player  >  value bank                 = Guest
       | otherwise                                   = Bank
 
 -- On top of operator
-
 (<+) :: Hand -> Hand -> Hand
 (<+) Empty            hand  = hand
 (<+) hand             Empty = hand
@@ -109,8 +105,7 @@ prop_onTopOf_assoc p1 p2 p3 =
 prop_size_onTopOf :: Hand -> Hand -> Bool
 prop_size_onTopOf hand1 hand2 = size (hand1 <+ hand2 ) == size hand1 + size hand2
 
--- full deck
-
+-- Generates a full deck.
 fullDeck :: Hand
 fullDeck = suitHand Spades <+ suitHand Hearts
           <+ suitHand Clubs <+ suitHand Diamonds
