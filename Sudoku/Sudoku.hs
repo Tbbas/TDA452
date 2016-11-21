@@ -2,6 +2,7 @@ module Sudoku where
 
 import Test.QuickCheck
 import Data.Maybe
+import Data.Char
 
 -------------------------------------------------------------------------
 
@@ -19,11 +20,11 @@ isSudoku (Sudoku []) = False
 isSudoku sudoku = and ((length (rows sudoku) == 9) : map isRow (rows sudoku))
 
 isRow :: [Maybe Int] -> Bool
-isRow x = and ((length x == 9) : map isDigit x)
+isRow x = and ((length x == 9) : map isSudokuDigit x)
 
-isDigit :: Maybe Int -> Bool
-isDigit Nothing = True
-isDigit (Just a) = a <= 9 && a > 0
+isSudokuDigit :: Maybe Int -> Bool
+isSudokuDigit Nothing = True
+isSudokuDigit (Just a) = a <= 9 && a > 0
 
 -- isSolved sud checks if sud is already solved, i.e. there are no blanks
 isSolved :: Sudoku -> Bool
@@ -42,18 +43,32 @@ isNotNothing _       = True
 
 -- printSudoku sud prints a representation of the sudoku sud on the screen
 printSudoku :: Sudoku -> IO ()
-printSudoku sud = putStrLn (map tmp (rows sud)))
+printSudoku sud = putStr (unlines (map appendNewLine (map makeString (rows sud))))
 
-tmp :: [Maybe Int] -> String
-tmp x = unlines (map maybeIntToString x)
+appendNewLine :: String -> String
+appendNewLine sud = sud ++ ['\n']
+
+makeString :: [Maybe Int] -> String
+makeString x = concat (map maybeIntToString x)
 
 maybeIntToString :: Maybe Int -> String
 maybeIntToString Nothing = "."
 maybeIntToString (Just a) = show a
+
 -- readSudoku file reads from the file, and either delivers it, or stops
 -- if the file did not contain a sudoku
+
 readSudoku :: FilePath -> IO Sudoku
-readSudoku = undefined
+readSudoku filePath = do
+    file <- readFile filePath
+    return (Sudoku (map tmp (lines (file))))
+
+tmp :: String -> [Maybe Int]
+tmp xs = [stringToMaybeInt y | y <- xs]
+
+stringToMaybeInt :: Char -> Maybe Int
+stringToMaybeInt '.'  = Nothing
+stringToMaybeInt s    = Just (digitToInt s)
 
 -------------------------------------------------------------------------
 
