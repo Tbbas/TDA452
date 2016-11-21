@@ -3,6 +3,7 @@ module Sudoku where
 import Test.QuickCheck
 import Data.Maybe
 import Data.Char
+import Data.List.Split
 
 -------------------------------------------------------------------------
 
@@ -43,10 +44,7 @@ isNotNothing _       = True
 
 -- printSudoku sud prints a representation of the sudoku sud on the screen
 printSudoku :: Sudoku -> IO ()
-printSudoku sud = putStr (unlines (map appendNewLine (map makeString (rows sud))))
-
-appendNewLine :: String -> String
-appendNewLine sud = sud ++ ['\n']
+printSudoku sud = putStr (unlines (map makeString (rows sud)))
 
 makeString :: [Maybe Int] -> String
 makeString x = concat (map maybeIntToString x)
@@ -54,9 +52,6 @@ makeString x = concat (map maybeIntToString x)
 maybeIntToString :: Maybe Int -> String
 maybeIntToString Nothing = "."
 maybeIntToString (Just a) = show a
-
--- readSudoku file reads from the file, and either delivers it, or stops
--- if the file did not contain a sudoku
 
 readSudoku :: FilePath -> IO Sudoku
 readSudoku filePath = do
@@ -74,15 +69,42 @@ stringToMaybeInt s    = Just (digitToInt s)
 
 -- cell generates an arbitrary cell in a Sudoku
 cell :: Gen (Maybe Int)
-cell = undefined
-
--- an instance for generating Arbitrary Sudokus
+cell = frequency [(9, return Nothing),
+                  (1, do
+                      x <- elements [1..9];
+                        return (Just x))]
+--
+-- -- an instance for generating Arbitrary Sudokus
 instance Arbitrary Sudoku where
   arbitrary =
     do rows <- sequence [ sequence [ cell | j <- [1..9] ] | i <- [1..9] ]
        return (Sudoku rows)
 
+prop_Sudoku :: Sudoku -> Bool
+prop_Sudoku sud = isSudoku sud
+
 -------------------------------------------------------------------------
+type Block = [Maybe Int]
+
+--
+isOkayBlock :: Block -> Bool
+isOkayBlock (x:[]) = True
+isOkayBlock (x:xs) = not (contains x xs) && isOkayBlock xs
+
+contains :: Maybe Int -> [Maybe Int] -> Bool
+contains Nothing _  = False
+contains y (x:[])   = y == x
+contains y (x:xs)   = y == x || contains y xs
+
+--
+blocks :: Sudoku -> [Block]
+blocks sud = undefined
+
+tmp x:xs = undefined
+
+splitRow :: [Maybe Int] -> [[Maybe Int]]
+splitRow xs = chunksOf 3 xs
+--------------------------------------------------------------------------
 
 
 example :: Sudoku
