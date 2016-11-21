@@ -26,6 +26,7 @@ size hand2
               (Add (Card Jack Spades) Empty))
   = 1 + size (Add (Card Jack Spades) Empty)
   = 1 + (1 + size Empty)
+  = 1 + 1 + 0
   = 2
 -}
 
@@ -38,7 +39,7 @@ empty = Empty
 -- Calculates the value of a hand, either by seeing the aces as 11 or seeing them as 1.
 value :: Hand -> Integer
 value hand
-                | normalValue hand > 21 = alternativeHandValue hand
+                | normalValue hand > 21 = normalValue hand - (10*(numberOfAce hand))
                 | otherwise = normalValue hand
 
 
@@ -71,12 +72,7 @@ numberOfAce (Add card hand) = numberOfAce hand
 
 gameOver :: Hand -> Bool
 gameOver Empty = False
-gameOver (Add card hand) = alternativeHandValue (Add card hand) > 21
-
--- Calculates the value of a hand when the values of Ace=1
-alternativeHandValue :: Hand -> Integer
-alternativeHandValue Empty = 0
-alternativeHandValue hand = normalValue hand - (10*(numberOfAce hand))
+gameOver hand = value hand > 21
 
 
 
