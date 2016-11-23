@@ -104,16 +104,16 @@ blocks sud = groupRows (rows sud)
 -- given all rows in a Sudoku splits them in groups of three and creates blocks from those rows
 groupRows :: [Row] -> [Block]
 groupRows []   = []
-groupRows sud  = tmp2 (transpose (take 3 sud)) ++ tmp1 (drop 3 sud)
+groupRows sud  = rowsToBlocks (transpose (take 3 sud)) ++ groupRows (drop 3 sud)
 
 -- Given a list of three rows returns them as a list of the blocks
 rowsToBlocks :: [Row] -> [Block]
 rowsToBlocks []   = []
-rowsToBlocks rows  = (concat (transpose (take 3 rows))):(tmp2 (drop 3 rows))
+rowsToBlocks rows  = (concat (transpose (take 3 rows))):(rowsToBlocks (drop 3 rows))
 
 -- Checks that a given Sudoku only contains valid blocks
 isOkay :: Sudoku -> Bool
 isOkay sud
         | isSudoku sud = and (map isOkayBlock (blocks sud))
         | otherwise = False
--- --------------------------------------------------------------------------
+----------------------------------------------------------------------------
