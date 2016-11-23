@@ -105,24 +105,19 @@ prop_size_onTopOf hand1 hand2 = size (hand1 <+ hand2 ) == size hand1 + size hand
 
 -- Generates a full deck.
 fullDeck :: Hand
-fullDeck = suitHand Spades <+ suitHand Hearts
-          <+ suitHand Clubs <+ suitHand Diamonds
+fullDeck = foldr (<+) Empty (map suitHand [Spades, Hearts, Clubs, Diamonds])
+  -- suitHand Spades <+ suitHand Hearts
+  --         <+ suitHand Clubs <+ suitHand Diamonds
 
 suitHand :: Suit -> Hand
-suitHand suit = Empty
-        <+ Add (Card (Numeric 2) suit) Empty
-        <+ Add (Card (Numeric 3) suit) Empty
-        <+ Add (Card (Numeric 4) suit) Empty
-        <+ Add (Card (Numeric 5) suit) Empty
-        <+ Add (Card (Numeric 6) suit) Empty
-        <+ Add (Card (Numeric 7) suit) Empty
-        <+ Add (Card (Numeric 8) suit) Empty
-        <+ Add (Card (Numeric 9) suit) Empty
-        <+ Add (Card (Numeric 10) suit) Empty
-        <+ Add (Card Jack suit) Empty
-        <+ Add (Card Queen suit) Empty
-        <+ Add (Card King suit) Empty
-        <+ Add (Card Ace suit) Empty
+suitHand suit = listToHand (cards ++ royalCards)
+  where
+    royalCards  = [x | x <- [Card Ace suit, Card King suit, Card Queen suit, Card Jack suit]]
+    cards       = [Card (Numeric x) suit | x <- [2,3,4,5,6,7,8,9,10]]
+
+listToHand :: [Card] -> Hand
+listToHand (x:[]) = (Add x Empty)
+listToHand (x:xs) = Add x (listToHand xs)
 
 -- Draw
 
@@ -141,9 +136,7 @@ playBank'  deck hand
             | value hand >= 16 = hand
             | otherwise = playBank' hand' deck'
           where
-            handAndDeck = draw deck hand
-            deck'       = snd handAndDeck
-            hand'       = fst handAndDeck
+            (hand', deck') = draw deck hand
 
 --Shuffle
 shuffle :: StdGen -> Hand -> Hand
