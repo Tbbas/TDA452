@@ -39,8 +39,10 @@ empty = Empty
 -- Calculates the value of a hand, either by seeing the aces as 11 or seeing them as 1.
 value :: Hand -> Integer
 value hand
-                | normalValue hand > 21 = normalValue hand - (10*(numberOfAce hand))
-                | otherwise = normalValue hand
+                | handValue > 21 = handValue - (10*(numberOfAce hand))
+                | otherwise = handValue
+                where
+                  handValue = normalValue hand
 
 
 -- Calculates the value of a hand when all Aces are seen as 11
