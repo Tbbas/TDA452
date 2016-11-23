@@ -108,15 +108,11 @@ fullDeck = foldr (<+) Empty (map suitHand [Spades, Hearts, Clubs, Diamonds])
   --         <+ suitHand Clubs <+ suitHand Diamonds
 
 suitHand :: Suit -> Hand
-suitHand suit = listToHand (cards ++ royalCards)
+suitHand suit = foldr Add Empty (cards ++ royalCards)
   where
-    royalCards  = [x | x <- [Card Ace suit, Card King suit, Card Queen suit, Card Jack suit]]
-    cards       = [Card (Numeric x) suit | x <- [2,3,4,5,6,7,8,9,10]]
-
-listToHand :: [Card] -> Hand
-listToHand (x:[]) = (Add x Empty)
-listToHand (x:xs) = Add x (listToHand xs)
-
+    royalCards  = [Card x suit | x <- [Jack, Queen, King, Ace]]
+    cards       = [Card (Numeric x) suit | x <- [2..10]]
+    
 -- Draw
 
 draw :: Hand -> Hand -> (Hand,Hand)
