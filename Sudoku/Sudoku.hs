@@ -3,7 +3,7 @@ module Sudoku where
 import Test.QuickCheck
 import Data.Maybe
 import Data.Char
-import Data.List.Split
+import Data.List
 
 -------------------------------------------------------------------------
 
@@ -84,7 +84,8 @@ prop_Sudoku :: Sudoku -> Bool
 prop_Sudoku sud = isSudoku sud
 
 -------------------------------------------------------------------------
-type Block = [Maybe Int]
+type Block  = [Maybe Int]
+type Row    = [Maybe Int]
 
 --
 isOkayBlock :: Block -> Bool
@@ -98,25 +99,21 @@ contains y (x:xs)   = y == x || contains y xs
 
 --
 blocks :: Sudoku -> [Block]
-blocks sud = undefined
+blocks sud = groupRows (rows sud)
 
-tmp x:xs = undefined
+-- given all rows in a Sudoku splits them in groups of three and creates blocks from those rows
+groupRows :: [Row] -> [Block]
+groupRows []   = []
+groupRows sud  = tmp2 (transpose (take 3 sud)) ++ tmp1 (drop 3 sud)
 
-splitRow :: [Maybe Int] -> [[Maybe Int]]
-splitRow xs = chunksOf 3 xs
---------------------------------------------------------------------------
+-- Given a list of three rows returns them as a list of the blocks
+rowsToBlocks :: [Row] -> [Block]
+rowsToBlocks []   = []
+rowsToBlocks rows  = (concat (transpose (take 3 rows))):(tmp2 (drop 3 rows))
 
-
-example :: Sudoku
-example =
-  Sudoku
-    [ [Just 3, Just 6, Nothing,Nothing,Just 7, Just 1, Just 2, Nothing,Nothing]
-    , [Nothing,Just 5, Nothing,Nothing,Nothing,Nothing,Just 1, Just 8, Nothing]
-    , [Nothing,Nothing,Just 9, Just 2, Nothing,Just 4, Just 7, Nothing,Nothing]
-    , [Nothing,Nothing,Nothing,Nothing,Just 1, Just 3, Nothing,Just 2, Just 8]
-    , [Just 4, Nothing,Nothing,Just 5, Nothing,Just 2, Nothing,Nothing,Just 9]
-    , [Just 2, Just 7, Nothing,Just 4, Just 6, Nothing,Nothing,Nothing,Nothing]
-    , [Nothing,Nothing,Just 5, Just 3, Nothing,Just 8, Just 9, Nothing,Nothing]
-    , [Nothing,Just 8, Just 3, Nothing,Nothing,Nothing,Nothing,Just 6, Nothing]
-    , [Nothing,Nothing,Just 7, Just 6, Just 9, Nothing,Nothing,Just 4, Just 3]
-    ]
+-- Checks that a given Sudoku only contains valid blocks
+isOkay :: Sudoku -> Bool
+isOkay sud
+        | isSudoku sud = and (map isOkayBlock (blocks sud))
+        | otherwise = False
+-- --------------------------------------------------------------------------
