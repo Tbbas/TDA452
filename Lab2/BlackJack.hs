@@ -92,8 +92,6 @@ winner player bank
 -- On top of operator
 (<+) :: Hand -> Hand -> Hand
 (<+) Empty            hand  = hand
-(<+) hand             Empty = hand
-(<+) (Add card Empty) hand2 = Add card hand2
 (<+) (Add card hand1) hand2 = Add card (hand1 <+ hand2)
 
 prop_onTopOf_assoc :: Hand -> Hand -> Hand -> Bool
