@@ -116,4 +116,18 @@ isOkay :: Sudoku -> Bool
 isOkay sud
         | isSudoku sud = and (map isOkayBlock (blocks sud))
         | otherwise = False
-----------------------------------------------------------------------------
+-- --------------------------------------------------------------------------
+type Pos = (Int,Int)
+
+blanks :: Sudoku -> [Pos]
+blanks sud = helpBlanks2 0 (rows sud)
+
+helpBlanks :: Int -> Int -> [Maybe Int] -> [Pos]
+helpBlanks r c ((Just _):[]) = []
+helpBlanks r c (Nothing:[]) = ((r,c):[])
+helpBlanks r c (Nothing:xs) = ((r,c):helpBlanks r (c+1) xs)
+helpBlanks r c ((Just _):xs) = helpBlanks r (c+1) xs
+
+helpBlanks2 :: Int -> [[Maybe Int]] -> [Pos]
+helpBlanks2 r (x:[]) = helpBlanks r 0 x
+helpBlanks2 r (x:xs) = (helpBlanks r 0 x) ++ (helpBlanks2 (r+1) xs)
