@@ -101,6 +101,8 @@ contains y (x:xs)   = y == x || contains y xs
 blocks :: Sudoku -> [Block]
 blocks sud = groupRows (rows sud)
 
+-- implement prop
+
 -- given all rows in a Sudoku splits them in groups of three and creates blocks from those rows
 groupRows :: [Row] -> [Block]
 groupRows []   = []
@@ -120,14 +122,27 @@ isOkay sud
 type Pos = (Int,Int)
 
 blanks :: Sudoku -> [Pos]
-blanks sud = helpBlanks2 0 (rows sud)
+blanks sud = [(rNbr, cNbr) | rNbr <- [0..8], cNbr <- [0..8], isElementNothing (rows sud) rNbr cNbr ]
 
-helpBlanks :: Int -> Int -> [Maybe Int] -> [Pos]
-helpBlanks r c ((Just _):[]) = []
-helpBlanks r c (Nothing:[]) = ((r,c):[])
-helpBlanks r c (Nothing:xs) = ((r,c):helpBlanks r (c+1) xs)
-helpBlanks r c ((Just _):xs) = helpBlanks r (c+1) xs
+isElementNothing :: [[Maybe Int]] -> Int -> Int -> Bool
+isElementNothing sud rNbr cNbr = ((sud !! rNbr) !! cNbr) == Nothing
 
-helpBlanks2 :: Int -> [[Maybe Int]] -> [Pos]
-helpBlanks2 r (x:[]) = helpBlanks r 0 x
-helpBlanks2 r (x:xs) = (helpBlanks r 0 x) ++ (helpBlanks2 (r+1) xs)
+prop_blanks = (blanks allBlankSudoku) == [(x,y) | x <- [0..8], y <- [0..8]]
+--
+
+(!!=) :: [a] -> (Int, a) -> [a]
+(!!=) [] _         = []
+(!!=) xs (pos, el) = (take (pos - 1) xs) ++ (el : (drop pos xs))
+
+prop_replace_length_intacte :: [a] -> (Int, a) -> Bool
+prop_replace_length_intacte xs (pos, el)
+                  | pos < 0         = prop_replace_length_intacte xs (abs pos, el)
+                  | pos > length xs = prop_replace_length_intacte xs (length xs, el)
+                  | otherwise       = length (xs !!= (pos, el)) == length xs
+
+prop_contains :: Eq a => [a] -> (Int, a) -> Bool
+prop_contains [] _            = True
+prop_contains xs (pos, el)
+                  | pos < 0         = prop_contains xs (abs pos, el)
+                  | pos > length xs = prop_contains xs (length xs, el)
+                  | otherwise       = elem el (xs !!= (pos, el))

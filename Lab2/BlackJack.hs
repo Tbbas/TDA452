@@ -104,15 +104,13 @@ prop_size_onTopOf hand1 hand2 = size (hand1 <+ hand2 ) == size hand1 + size hand
 -- Generates a full deck.
 fullDeck :: Hand
 fullDeck = foldr (<+) Empty (map suitHand [Spades, Hearts, Clubs, Diamonds])
-  -- suitHand Spades <+ suitHand Hearts
-  --         <+ suitHand Clubs <+ suitHand Diamonds
 
 suitHand :: Suit -> Hand
 suitHand suit = foldr Add Empty (cards ++ royalCards)
   where
     royalCards  = [Card x suit | x <- [Jack, Queen, King, Ace]]
     cards       = [Card (Numeric x) suit | x <- [2..10]]
-    
+
 -- Draw
 
 draw :: Hand -> Hand -> (Hand,Hand)
