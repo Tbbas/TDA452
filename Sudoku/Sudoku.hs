@@ -132,7 +132,7 @@ prop_blanks = (blanks allBlankSudoku) == [(x,y) | x <- [0..8], y <- [0..8]]
 
 (!!=) :: [a] -> (Int, a) -> [a]
 (!!=) [] _         = []
-(!!=) xs (pos, el) = (take (pos - 1) xs) ++ (el : (drop pos xs))
+(!!=) xs (pos, el) = (take (pos) xs) ++ (el : (drop pos xs))
 
 prop_replace_length_intacte :: [a] -> (Int, a) -> Bool
 prop_replace_length_intacte xs (pos, el)
@@ -146,3 +146,11 @@ prop_contains xs (pos, el)
                   | pos < 0         = prop_contains xs (abs pos, el)
                   | pos > length xs = prop_contains xs (length xs, el)
                   | otherwise       = elem el (xs !!= (pos, el))
+
+update :: Sudoku -> Pos -> Maybe Int -> Sudoku
+update sud (x,y) el = Sudoku((rows sud) !!= (x,((rows sud) !! x) !!= (y,el)))
+
+prop_update :: Sudoku -> Pos -> Maybe Int -> Bool
+prop_update sud (x,y) el  | x < 0 = ((rows (update sud (abs x,y) el) !! abs x) !! y )== el
+                          | y < 0 = ((rows (update sud (x,abs y) el) !! x) !! abs y )== el
+                          | otherwise = ((rows (update sud (x,abs y) el) !! x) !! abs y )== el
