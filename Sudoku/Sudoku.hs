@@ -116,8 +116,11 @@ rowsToBlocks rows  = (concat (transpose (take 3 rows))):(rowsToBlocks (drop 3 ro
 -- Checks that a given Sudoku only contains valid blocks
 isOkay :: Sudoku -> Bool
 isOkay sud
-        | isSudoku sud = and (map isOkayBlock (blocks sud))
+        | isSudoku sud = and (map isOkayBlock ((blocks sud) ++ (row) ++ (col)))
         | otherwise = False
+      where
+        row = rows sud
+        col = transpose (rows sud)
 -- --------------------------------------------------------------------------
 type Pos = (Int,Int)
 
@@ -151,6 +154,51 @@ update :: Sudoku -> Pos -> Maybe Int -> Sudoku
 update sud (x,y) el = Sudoku((rows sud) !!= (x,((rows sud) !! x) !!= (y,el)))
 
 prop_update :: Sudoku -> Pos -> Maybe Int -> Bool
-prop_update sud (x,y) el  | x < 0 = ((rows (update sud (abs x,y) el) !! abs x) !! y )== el
-                          | y < 0 = ((rows (update sud (x,abs y) el) !! x) !! abs y )== el
-                          | otherwise = ((rows (update sud (x,abs y) el) !! x) !! abs y )== el
+prop_update sud (x,y) el
+                          | x < 0 = prop_update sud (abs x, y) el
+                          | y < 0 = prop_update sud (x, abs y) el
+                          | x > 8 = prop_update sud (8, y) el
+                          | y > 8 = prop_update sud (x, 8) el
+                          | otherwise = ((rows (update sud (x,y) el) !! x) !! y )== el
+
+candidates :: Sudoku -> Pos -> [Int]
+candidates sud (x,y) = intersect candidatesRow (intersect candidatesCols candidatesBlock)
+  where
+    candidatesCols   = candidatesInBlock ((transpose (rows sud)) !! y)
+    candidatesRow  = candidatesInBlock ((rows sud) !! x)
+    candidatesBlock = candidatesInBlock (blocksInSud !! ((y `div` 3) + 3*(x `div` 3)))
+    blocksInSud     = blocks sud
+
+candidatesInBlock :: Block -> [Int]
+candidatesInBlock block = [x | x <- [1..9], not (contains (Just x) block)]
+
+--Give props
+
+--
+solve :: Sudoku -> Maybe Sudoku
+solve sud
+          | (isSudoku sud) && (isOkay sud) = solve' sud
+          | otherwise                      = Nothing
+
+solve' :: Sudoku -> Maybe Sudoku
+solve' sud
+          | 0 >= length (blanksInSud) = Just sud
+          | otherwise                 = solve'' sud blanksInSud
+  where
+    blanksInSud = blanks sud
+
+solve'' :: Sudoku -> [Pos] -> Maybe Sudoku
+solve'' sud (p:[])  = solveFor sud p (candidates sud p)
+solve'' sud (p:pos)
+        | resultOfPos == Nothing = solve'' sud pos
+        | otherwise = resultOfPos
+      where
+        resultOfPos = solveFor sud p (candidates sud p)
+
+solveFor :: Sudoku -> Pos -> [Int] -> Maybe Sudoku
+solveFor sud pos (c:[])                   = solve sud
+solveFor sud pos (c:candidates)
+          | (solve updatedSud) == Nothing = solveFor sud pos candidates
+          | otherwise                     = solve sud
+  where
+    updatedSud= update sud pos (Just c)
