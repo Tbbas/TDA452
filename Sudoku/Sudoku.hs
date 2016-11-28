@@ -180,25 +180,20 @@ solve sud
           | (isSudoku sud) && (isOkay sud) = solve' sud
           | otherwise                      = Nothing
 
+
 solve' :: Sudoku -> Maybe Sudoku
 solve' sud
-          | 0 >= length (blanksInSud) = Just sud
-          | otherwise                 = solve'' sud blanksInSud
-  where
-    blanksInSud = blanks sud
+          | 0 >= length (blanks sud) = Just sud
+          | otherwise = solveFor sud pos posValue
+          where pos = (head (blanks sud))
+                posValue =  candidates sud pos
 
-solve'' :: Sudoku -> [Pos] -> Maybe Sudoku
-solve'' sud (p:[])  = solveFor sud p (candidates sud p)
-solve'' sud (p:pos)
-        | resultOfPos == Nothing = solve'' sud pos
-        | otherwise = resultOfPos
-      where
-        resultOfPos = solveFor sud p (candidates sud p)
 
 solveFor :: Sudoku -> Pos -> [Int] -> Maybe Sudoku
-solveFor sud pos (c:[])                   = solve sud
+solveFor sud pos (c:[])                   = solve (update sud pos (Just c))
 solveFor sud pos (c:candidates)
-          | (solve updatedSud) == Nothing = solveFor sud pos candidates
-          | otherwise                     = solve sud
+          | sUSud == Nothing              = solveFor sud pos candidates
+          | otherwise                     = sUSud
   where
     updatedSud= update sud pos (Just c)
+    sUSud = solve updatedSud
