@@ -213,19 +213,26 @@ solveFor sud pos (c:candidates)           =
         Nothing -> solveFor sud pos candidates
         Just sud' -> Just sud'
 
-        readAndSolve :: FilePath -> IO()
-        readAndSolve path = do
-                          sud <- readSudoku path
-                          if (isOkay sud)
-                            then printSudoku (fromJust (solve sud))
-                            else print("no solution")
+readAndSolve :: FilePath -> IO()
+readAndSolve path = do
+              sud <- readSudoku path
+              if (isOkay sud)
+                then printSudoku (fromJust (solve sud))
+                else print("no solution")
 
 isSolutionOf :: Sudoku -> Sudoku -> Bool
-isSolutionOf sud1 sud2 |  bothOkay && blanks1Okay && blanks2Okay = (rows sud1 == rows sud2)
+isSolutionOf sud1 sud2 |  bothOkay && sudSolution = checkNumbersContained sud1 sud2 (getFilled sud2)
       where
-            blanks1Okay = (blanks sud1 == [])
-            blanks2Okay = (blanks sud2 == [])
             bothOkay = (isOkay sud1 && isOkay sud2)
+            sudSolution = isSolved sud1
+
+getFilled :: Sudoku -> [Pos]
+getFilled sud = [(rNbr, cNbr) | rNbr <- [0..8], cNbr <- [0..8], not (isElementNothing (rows sud) rNbr cNbr )]
+
+checkNumbersContained :: Sudoku -> Sudoku -> [Pos] -> Bool
+checkNumbersContained sud1 sud2 ((x,y):[]) = (((rows sud1) !! x) !! y) == (((rows sud2) !! x) !! y)
+checkNumbersContained sud1 sud2 ((x,y):pos) =  elementCorrect && checkNumbersContained sud1 sud2 pos
+                        where elementCorrect = (((rows sud1) !! x) !! y) == (((rows sud2) !! x) !! y)
 
 
   --
