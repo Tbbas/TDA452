@@ -225,3 +225,8 @@ checkNumbersContained :: Sudoku -> Sudoku -> [Pos] -> Bool
 checkNumbersContained sud1 sud2 [] = True
 checkNumbersContained sud1 sud2 ((x,y):pos) =  elementCorrect && checkNumbersContained sud1 sud2 pos
                         where elementCorrect = (((rows sud1) !! x) !! y) == (((rows sud2) !! x) !! y)
+
+prop_SolvedSound :: Sudoku -> Property
+prop_SolvedSound sud = ((isOkay sud) && (isSudoku sud)) ==>  (solvedSud `isSolutionOf` sud) && isSolved solvedSud
+  where
+    solvedSud = (fromJust (solve sud))
