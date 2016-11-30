@@ -134,14 +134,17 @@ prop_blanks = (blanks allBlankSudoku) == [(x,y) | x <- [0..8], y <- [0..8]]
 --
 
 (!!=) :: [a] -> (Int, a) -> [a]
-(!!=) [] _         = []
-(!!=) xs (pos, el) = (take (pos) xs) ++ (el : (drop pos xs))
+(!!=) []      _         = []
+(!!=) (x:[])  (pos, el) = el:[]
+(!!=) xs      (pos, el)
+                        | pos + 1 > length xs = xs
+                        | otherwise            = (take (pos) xs) ++ (el : (drop (pos + 1) xs))
 
 prop_replace_length_intacte :: [a] -> (Int, a) -> Bool
 prop_replace_length_intacte xs (pos, el)
-                  | pos < 0         = prop_replace_length_intacte xs (abs pos, el)
-                  | pos > length xs = prop_replace_length_intacte xs (length xs, el)
-                  | otherwise       = length (xs !!= (pos, el)) == length xs
+                  | pos < 0           = prop_replace_length_intacte xs (abs pos, el)
+                  | pos > length xs  = prop_replace_length_intacte xs ((length xs), el)
+                  | otherwise         = length (xs !!= (pos, el)) == length xs
 
 prop_contains :: Eq a => [a] -> (Int, a) -> Bool
 prop_contains [] _            = True
@@ -153,13 +156,24 @@ prop_contains xs (pos, el)
 update :: Sudoku -> Pos -> Maybe Int -> Sudoku
 update sud (x,y) el = Sudoku((rows sud) !!= (x,((rows sud) !! x) !!= (y,el)))
 
-prop_update :: Sudoku -> Pos -> Maybe Int -> Bool
+prop_update ::Sudoku -> Pos -> Maybe Int -> Property
 prop_update sud (x,y) el
                           | x < 0 = prop_update sud (abs x, y) el
                           | y < 0 = prop_update sud (x, abs y) el
                           | x > 8 = prop_update sud (8, y) el
                           | y > 8 = prop_update sud (x, 8) el
-                          | otherwise = ((rows (update sud (x,y) el) !! x) !! y )== el
+                          | otherwise = ((isOkay sud) && (isSudoku sud)) ==> ((rows (update sud (x,y) el) !! x) !! y )== el
+
+-- prop_update_isOkay :: Sudoku -> Pos -> Maybe Int -> Bool
+-- prop_update_isOkay sud (x,y) el
+--                           | el == Nothing      = prop_update_isOkay sud (x,y) (Just 5)
+--                           | (fromJust el) > 9  = prop_update_isOkay sud (x,y) (Just 9)
+--                           | (fromJust el) <= 0 = prop_update_isOkay sud (x,y) (Just 1)
+--                           | x < 0 = prop_update_isOkay sud (abs x, y) el
+--                           | y < 0 = prop_update_isOkay sud (x, abs y) el
+--                           | x > 8 = prop_update_isOkay sud (8, y) el
+--                           | y > 8 = prop_update_isOkay sud (x, 8) el
+--                           | otherwise = isOkay (update sud (x,y) el)
 
 candidates :: Sudoku -> Pos -> [Int]
 candidates sud (x,y) = intersect candidatesRow (intersect candidatesCols candidatesBlock)
@@ -172,8 +186,11 @@ candidates sud (x,y) = intersect candidatesRow (intersect candidatesCols candida
 candidatesInBlock :: Block -> [Int]
 candidatesInBlock block = [x | x <- [1..9], not (contains (Just x) block)]
 
---Give props
-
+prop_candidate :: Sudoku -> Pos -> Property
+prop_candidate sud (x,y) = ((isOkay sud) && (isSudoku sud) && x > 0 && x < 9 && y > 0 && y < 9)  ==> (isSudoku updatedSud) && (isOkay updatedSud)
+  where
+    updatedSud = update sud (x,y) (Just (head candidateList))
+    candidateList = candidates sud (x,y)
 --
 solve :: Sudoku -> Maybe Sudoku
 solve sud
@@ -191,9 +208,15 @@ solve' sud
 
 solveFor :: Sudoku -> Pos -> [Int] -> Maybe Sudoku
 solveFor sud pos (c:[])                   = solve (update sud pos (Just c))
-solveFor sud pos (c:candidates)
-          | sUSud == Nothing              = solveFor sud pos candidates
-          | otherwise                     = sUSud
-  where
-    updatedSud= update sud pos (Just c)
-    sUSud = solve updatedSud
+solveFor sud pos (c:candidates)           =
+      case solve sud of
+        Nothing -> solveFor sud pos candidates
+        Just sud' -> Just sud'
+
+
+  --
+  --         | sUSud == Nothing              = solveFor sud pos candidates
+  --         | otherwise                     = sUSud
+  -- where
+  --   updatedSud= update sud pos (Just c)
+  --   sUSud = solve updatedSud
