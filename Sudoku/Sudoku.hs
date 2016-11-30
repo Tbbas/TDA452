@@ -207,9 +207,10 @@ solve' sud
 
 
 solveFor :: Sudoku -> Pos -> [Int] -> Maybe Sudoku
+solveFor sud pos []                       = Nothing
 solveFor sud pos (c:[])                   = solve (update sud pos (Just c))
 solveFor sud pos (c:candidates)           =
-      case solve sud of
+      case solve (update sud pos (Just c)) of
         Nothing -> solveFor sud pos candidates
         Just sud' -> Just sud'
 
