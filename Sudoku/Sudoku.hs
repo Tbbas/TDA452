@@ -213,6 +213,20 @@ solveFor sud pos (c:candidates)           =
         Nothing -> solveFor sud pos candidates
         Just sud' -> Just sud'
 
+        readAndSolve :: FilePath -> IO()
+        readAndSolve path = do
+                          sud <- readSudoku path
+                          if (isOkay sud)
+                            then printSudoku (fromJust (solve sud))
+                            else print("no solution")
+
+isSolutionOf :: Sudoku -> Sudoku -> Bool
+isSolutionOf sud1 sud2 |  bothOkay && blanks1Okay && blanks2Okay = (rows sud1 == rows sud2)
+      where
+            blanks1Okay = (blanks sud1 == [])
+            blanks2Okay = (blanks sud2 == [])
+            bothOkay = (isOkay sud1 && isOkay sud2)
+
 
   --
   --         | sUSud == Nothing              = solveFor sud pos candidates
