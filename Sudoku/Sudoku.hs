@@ -164,16 +164,6 @@ prop_update sud (x,y) el
                           | y > 8 = prop_update sud (x, 8) el
                           | otherwise = ((isOkay sud) && (isSudoku sud)) ==> ((rows (update sud (x,y) el) !! x) !! y )== el
 
--- prop_update_isOkay :: Sudoku -> Pos -> Maybe Int -> Bool
--- prop_update_isOkay sud (x,y) el
---                           | el == Nothing      = prop_update_isOkay sud (x,y) (Just 5)
---                           | (fromJust el) > 9  = prop_update_isOkay sud (x,y) (Just 9)
---                           | (fromJust el) <= 0 = prop_update_isOkay sud (x,y) (Just 1)
---                           | x < 0 = prop_update_isOkay sud (abs x, y) el
---                           | y < 0 = prop_update_isOkay sud (x, abs y) el
---                           | x > 8 = prop_update_isOkay sud (8, y) el
---                           | y > 8 = prop_update_isOkay sud (x, 8) el
---                           | otherwise = isOkay (update sud (x,y) el)
 
 candidates :: Sudoku -> Pos -> [Int]
 candidates sud (x,y) = intersect candidatesRow (intersect candidatesCols candidatesBlock)
@@ -191,13 +181,13 @@ prop_candidate sud (x,y) = ((isOkay sud) && (isSudoku sud) && x > 0 && x < 9 && 
   where
     updatedSud = update sud (x,y) (Just (head candidateList))
     candidateList = candidates sud (x,y)
---
+-- Solves sudoku
 solve :: Sudoku -> Maybe Sudoku
 solve sud
           | (isSudoku sud) && (isOkay sud) = solve' sud
           | otherwise                      = Nothing
 
-
+-- helper method
 solve' :: Sudoku -> Maybe Sudoku
 solve' sud
           | 0 >= length (blanks sud) = Just sud
@@ -205,7 +195,7 @@ solve' sud
           where pos = (head (blanks sud))
                 posValue =  candidates sud pos
 
-
+-- Solves for a list of positions
 solveFor :: Sudoku -> Pos -> [Int] -> Maybe Sudoku
 solveFor sud pos []                       = Nothing
 solveFor sud pos (c:[])                   = solve (update sud pos (Just c))
@@ -214,13 +204,14 @@ solveFor sud pos (c:candidates)           =
         Nothing -> solveFor sud pos candidates
         Just sud' -> Just sud'
 
+-- Reads and solves a sudoku, then print it
 readAndSolve :: FilePath -> IO()
 readAndSolve path = do
               sud <- readSudoku path
               if (isOkay sud)
                 then printSudoku (fromJust (solve sud))
                 else print("no solution")
-
+-- Checks if a Sudoku is a valid sulution to another sudoku
 isSolutionOf :: Sudoku -> Sudoku -> Bool
 isSolutionOf sud1 sud2 |  bothOkay && sudSolution = checkNumbersContained sud1 sud2 (getFilled sud2)
       where
@@ -231,14 +222,6 @@ getFilled :: Sudoku -> [Pos]
 getFilled sud = [(rNbr, cNbr) | rNbr <- [0..8], cNbr <- [0..8], not (isElementNothing (rows sud) rNbr cNbr )]
 
 checkNumbersContained :: Sudoku -> Sudoku -> [Pos] -> Bool
-checkNumbersContained sud1 sud2 ((x,y):[]) = (((rows sud1) !! x) !! y) == (((rows sud2) !! x) !! y)
+checkNumbersContained sud1 sud2 [] = True
 checkNumbersContained sud1 sud2 ((x,y):pos) =  elementCorrect && checkNumbersContained sud1 sud2 pos
                         where elementCorrect = (((rows sud1) !! x) !! y) == (((rows sud2) !! x) !! y)
-
-
-  --
-  --         | sUSud == Nothing              = solveFor sud pos candidates
-  --         | otherwise                     = sUSud
-  -- where
-  --   updatedSud= update sud pos (Just c)
-  --   sUSud = solve updatedSud
