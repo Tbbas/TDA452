@@ -101,6 +101,12 @@ blocks sud = groupRows (rows sud) ++ (row) ++ (col)
           col = transpose (rows sud)
 
 -- implement prop
+prop_blocks :: Sudoku -> Bool
+prop_blocks sud = length blocksInSud == 27 && all cellsOkay blocksInSud
+                where
+                  blocksInSud = blocks sud
+                  cellsOkay :: Block -> Bool
+                  cellsOkay block = length block == 9
 
 -- given all rows in a Sudoku splits them in groups of three and creates blocks from those rows
 groupRows :: [Row] -> [Block]
