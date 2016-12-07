@@ -1,10 +1,13 @@
+import Parsing
+import Data.Maybe
+
 data Expr = Num Double
           | Var Name
           | Mul Expr Expr
           | Add Expr Expr
           | Sin Expr
           | Cos Expr
-
+          deriving (Show)
 type Name = String
 
 instance Arbitrary Expr where
@@ -12,6 +15,8 @@ instance Arbitrary Expr where
 
 instance Show Expr where
    show = showExpr
+-- instance Show Expr where
+--    show = showExpr
 
 showExpr :: Expr -> String
 showExpr (Num f )     = show f
@@ -42,6 +47,50 @@ eval (Add n m) k    = (eval n k) + (eval m k)
 eval (Sin n) k      = sin (eval n k)
 eval (Cos n) k      = cos (eval n k)
 
+
+
+readExpr :: String -> Expr
+readExpr input = fst (fromJust (parse expr input))
+
+{-
+digit   ::= {1..9}
+number  ::= digit{digit}
+-}
+
+number :: Parser Double
+number = do n <- oneOrMore digit
+            return (read n)
+
+{-
+char      ::= {a..Z}
+string    ::= char{char}
+-}
+
+string :: String -> Parser String
+string str = do c <- sequence [char s | s <- str]
+                return c
+
+{- BNF:
+expr      ::= term "+" expr | term.
+term      ::= factor "*" term | factor.
+factor    ::= number | "(" expr ")" | function.
+function  ::= "sin" expr | "sin(" expr ")" | "cos" expr | "cos(" expr ")"
+-}
+
+expr, term, factor, function :: Parser Expr
+
+expr = leftAssoc Add term (char '+')
+
+term = leftAssoc Mul factor (char '*')
+
+factor = (Num <$> number) <|> (char '(' *> expr <* char ')' <|> function)
+
+function = (Sin <$> (string "sin" *> expr)) <|> (Cos <$> (string "cos" *> expr))
+            <|> (Sin <$> (string "sin(" *> expr <* char ')')) <|> (Cos <$> (string "cos(" *> expr <* char ')'))
+
+leftAssoc :: (t->t->t) -> Parser t -> Parser sep -> Parser t
+leftAssoc op item sep = do  i:is <- chain item sep
+                            return (foldl op i is)
 
 prop_showReadExpression :: Expr -> Bool
 prop_showReadExpression expr = stringsEqual (readExpr expr) (showExpr expr)
