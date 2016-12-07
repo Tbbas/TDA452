@@ -7,6 +7,9 @@ data Expr = Num Double
 
 type Name = String
 
+instance Arbitrary Expr where
+  arbitrary = sized arbExpr
+
 instance Show Expr where
    show = showExpr
 
@@ -38,3 +41,18 @@ eval (Mul m n) k    = (eval m k) * (eval n k)
 eval (Add n m) k    = (eval n k) + (eval m k)
 eval (Sin n) k      = sin (eval n k)
 eval (Cos n) k      = cos (eval n k)
+
+
+prop_showReadExpression :: Expr -> Bool
+prop_showReadExpression expr = stringsEqual (readExpr expr) (showExpr expr)
+        where
+          stringsEqual :: String -> String -> Bool
+          stringsEqual (x,[]) (y,[]) = x==y
+          stringsEqual [] _ = false
+          stringsEqual _ [] = false
+          stringsEqual (x:xs) (y:ys) = x==y && stringsEqual xs ys
+
+arbExpr :: Int -> Gen Expr
+arbExpr oneof[rMul,rAdd,rBin]
+    where
+      rMul = undefined
