@@ -1,8 +1,11 @@
 data Expr = Num Float
+          | Var Name
           | Mul Expr Expr
           | Add Expr Expr
           | Sin Expr
           | Cos Expr
+
+type Name = String
 
 instance Show Expr where
    show = showExpr
@@ -26,3 +29,4 @@ showExpr (Cos x)      =
     (Mul _ _ ) -> "Cos(" ++ show x ++ ")"
     (Add _ _ ) ->  "Cos(" ++ show x ++ ")"
     otherwise -> "Cos" ++ show x
+showExpr (Var x)      = x
