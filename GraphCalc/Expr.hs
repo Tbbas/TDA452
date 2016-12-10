@@ -92,8 +92,13 @@ leftAssoc :: (t->t->t) -> Parser t -> Parser sep -> Parser t
 leftAssoc op item sep = do  i:is <- chain item sep
                             return (foldl op i is)
 
-prop_showReadExpression :: Expr -> Bool
-prop_showReadExpression expr = (readExpr (showExpr expr)) == expr
+prop_showReadExpression :: Double -> Expr -> Bool
+prop_showReadExpression n expr =  (eval (readExpr (showExpr expr)) n) ~== (eval expr n)
+
+(~==) :: Double -> Double -> Bool
+(~==) x y = (abs(x-y)) <= eps
+          where
+            eps = 0.001
 
 arbExpr :: Int -> Gen Expr
 arbExpr 0 =  elements[Num n| n<-[1..]]
