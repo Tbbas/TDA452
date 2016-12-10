@@ -1,5 +1,6 @@
 import Parsing
 import Data.Maybe
+import Test.QuickCheck
 
 data Expr = Num Double
           | Var Name
