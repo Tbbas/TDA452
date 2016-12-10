@@ -74,7 +74,7 @@ string str = do c <- sequence [char s | s <- str]
 expr      ::= term "+" expr | term.
 term      ::= factor "*" term | factor.
 factor    ::= number | "(" expr ")" | function.
-function  ::= "sin" expr | "sin(" expr ")" | "cos" expr | "cos(" expr ")"
+function  ::= "sin" number | "sin(" expr ")" | "cos" number | "cos(" expr ")"
 -}
 
 expr, term, factor, function :: Parser Expr
@@ -85,7 +85,7 @@ term = leftAssoc Mul factor (char '*')
 
 factor = (Num <$> number) <|> (char '(' *> expr <* char ')' <|> function)
 
-function = (Sin <$> (string "sin" *> expr)) <|> (Cos <$> (string "cos" *> expr))
+function = (Sin <$> (string "sin" *> factor)) <|> (Cos <$> (string "cos" *> factor))
             <|> (Sin <$> (string "sin(" *> expr <* char ')')) <|> (Cos <$> (string "cos(" *> expr <* char ')'))
 
 leftAssoc :: (t->t->t) -> Parser t -> Parser sep -> Parser t
