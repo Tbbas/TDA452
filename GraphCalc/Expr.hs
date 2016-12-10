@@ -30,14 +30,14 @@ showExpr (Add m n)    =
     otherwise -> show m ++ "+" ++ show n
 showExpr (Sin x)      =
   case x of
-    (Mul _ _ ) -> "Sin(" ++ show x ++ ")"
-    (Add _ _ ) ->  "Sin(" ++ show x ++ ")"
-    otherwise -> "Sin" ++ show x
+    (Mul _ _ ) -> "sin(" ++ show x ++ ")"
+    (Add _ _ ) ->  "sin(" ++ show x ++ ")"
+    otherwise -> "sin" ++ show x
 showExpr (Cos x)      =
   case x of
-    (Mul _ _ ) -> "Cos(" ++ show x ++ ")"
-    (Add _ _ ) ->  "Cos(" ++ show x ++ ")"
-    otherwise -> "Cos" ++ show x
+    (Mul _ _ ) -> "cos(" ++ show x ++ ")"
+    (Add _ _ ) ->  "cos(" ++ show x ++ ")"
+    otherwise -> "cos" ++ show x
 showExpr (Var x)      = x
 
 eval :: Expr -> Double -> Double
