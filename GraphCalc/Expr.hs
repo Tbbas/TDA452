@@ -8,7 +8,8 @@ data Expr = Num Double
           | Add Expr Expr
           | Sin Expr
           | Cos Expr
-          deriving (Show)
+          deriving(Eq)
+
 type Name = String
 
 instance Arbitrary Expr where
@@ -16,8 +17,6 @@ instance Arbitrary Expr where
 
 instance Show Expr where
    show = showExpr
--- instance Show Expr where
---    show = showExpr
 
 showExpr :: Expr -> String
 showExpr (Num f )     = show f
@@ -94,15 +93,17 @@ leftAssoc op item sep = do  i:is <- chain item sep
                             return (foldl op i is)
 
 prop_showReadExpression :: Expr -> Bool
-prop_showReadExpression expr = stringsEqual (readExpr expr) (showExpr expr)
-        where
-          stringsEqual :: String -> String -> Bool
-          stringsEqual (x,[]) (y,[]) = x==y
-          stringsEqual [] _ = false
-          stringsEqual _ [] = false
-          stringsEqual (x:xs) (y:ys) = x==y && stringsEqual xs ys
+prop_showReadExpression expr = (readExpr (showExpr expr)) == expr
 
 arbExpr :: Int -> Gen Expr
-arbExpr oneof[rMul,rAdd,rBin]
-    where
-      rMul = undefined
+arbExpr 0 =  elements[Num n| n<-[1..]]
+arbExpr k = oneof [rNum,rBin,rFunc]
+  where
+    rNum = elements [Num n| n<-[1..]]
+    rBin = do op <- elements[Add,Mul]
+              e1 <- arbExpr (k-1)
+              e2 <- arbExpr (k-1)
+              return (op e1 e2)
+    rFunc =   do op <- elements[Sin,Cos]
+                 e1 <- arbExpr (k-1)
+                 return (op e1 )
