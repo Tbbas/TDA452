@@ -101,14 +101,14 @@ prop_showReadExpression n expr =  (eval (readExpr (showExpr expr)) n) ~== (eval 
             eps = 0.001
 
 arbExpr :: Int -> Gen Expr
-arbExpr 0 =  elements[Num n| n<-[1..]]
-arbExpr k = oneof [rNum,rBin,rFunc]
+arbExpr size = frequency [(1,rNum), (1, rVar), (size, rBin size), (size, rFunc size)]
   where
-    rNum = elements [Num n| n<-[1..]]
-    rBin = do op <- elements[Add,Mul]
-              e1 <- arbExpr (k-1)
-              e2 <- arbExpr (k-1)
-              return (op e1 e2)
-    rFunc =   do op <- elements[Sin,Cos]
-                 e1 <- arbExpr (k-1)
-                 return (op e1 )
+    rNum = elements [Num n | n<-[1..]]
+    rVar = elements [Var n |n <-["x"]]
+    rBin size = do op <- elements[Add,Mul]
+                   e1 <- arbExpr (size `div` 2)
+                   e2 <- arbExpr (size `div` 2)
+                   return (op e1 e2)
+    rFunc size = do op <- elements[Sin,Cos]
+                    e1 <- arbExpr (size `div` 2)
+                    return (op e1 )
