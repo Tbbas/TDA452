@@ -85,20 +85,22 @@ term = leftAssoc Mul factor (char '*')
 
 factor = (Num <$> readsP) <|> char '(' *> expr <* char ')' <|> function <|> (Var <$> (string "x"))
 
-function = (Sin <$> (string "sin" *> factor)) <|> (Cos <$> (string "cos" *> factor))
-            <|> (Sin <$> (string "sin(" *> expr <* char ')')) <|> (Cos <$> (string "cos(" *> expr <* char ')'))
+function =  (Sin <$> (string "sin" *> factor)) <|>
+            (Cos <$> (string "cos" *> factor)) <|>
+            (Sin <$> (string "sin" *> factor)) <|>
+            (Cos <$> (string "cos" *> factor))
 
 leftAssoc :: (t->t->t) -> Parser t -> Parser sep -> Parser t
 leftAssoc op item sep = do  i:is <- chain item sep
                             return (foldl op i is)
 
-prop_showReadExpression :: Double -> Expr -> Bool
-prop_showReadExpression n expr =  (eval (readExpr (showExpr expr)) n) ~== (eval expr n)
+prop_showReadExpression :: Expr -> Bool
+prop_showReadExpression  expr =  (readExpr (showExpr expr)) == expr
 
 (~==) :: Double -> Double -> Bool
 (~==) x y = (abs(x-y)) <= eps
           where
-            eps = 10
+            eps = 0.001
 
 
 range = 100
@@ -115,3 +117,21 @@ arbExpr size = frequency [(1,rNum), (1, rVar), (size, rBin size), (size, rFunc s
     rFunc size = do op <- elements[Sin,Cos]
                     e1 <- arbExpr (size `div` 2)
                     return (op e1 )
+
+simplify :: Expr -> Expr
+simplify expr = case expr of
+  (Num m)         -> Num m
+  (Var x)         -> Var x
+  (Mul (Num 0) _) -> Num 0
+  (Mul (Num 1) m) -> simplify m
+  (Mul _ (Num 0)) -> Num 0
+  (Mul n (Num 1)) -> simplify n
+  (Mul n m)       -> Mul (simplify n) (simplify m)
+  (Add (Num 0) m) -> simplify m
+  (Add n (Num 0)) -> simplify n
+  (Add n m)       -> Add (simplify n) (simplify m)
+  (Sin n)         -> Sin (simplify n)
+  (Cos n)         -> Cos (simplify n)
+
+prop_simplify :: Expr -> Double -> Bool
+prop_simplify expr n = (eval (simplify expr) n) ~== (eval expr n)
