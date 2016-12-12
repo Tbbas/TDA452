@@ -20,13 +20,15 @@ instance Show Expr where
 
 showExpr :: Expr -> String
 showExpr (Num f )     = show f
-showExpr (Mul m n)    = show m ++ "*" ++ show n
-showExpr (Add m n)    =
+showExpr (Mul m n)    =
   case m of
-    (Mul _ _) -> case n of
-      (Mul _ _) -> "(" ++ show m ++ ") + (" ++ show n ++ ")"
-      otherwise  -> "(" ++ show m ++ ") +" ++ show n
-    otherwise -> show m ++ "+" ++ show n
+    (Add _ _) -> case n of
+      (Add _ _) -> "(" ++ show m ++ ")*(" ++ show n ++ ")"
+      otherwise  -> "(" ++ show m ++ ")*" ++ show n
+    otherwise -> case n of
+      (Add _ _ ) -> show m ++ "*(" ++ show n ++ ")"
+      otherwise -> show m ++ "*" ++ show n
+showExpr (Add m n)    = show m ++ "+" ++ show n
 showExpr (Sin x)      =
   case x of
     (Mul _ _ ) -> "sin(" ++ show x ++ ")"
@@ -58,7 +60,7 @@ number  ::= digit{digit}
 -}
 
 number :: Parser Double
-number = do n <- oneOrMore digit
+number = do n <- oneOrMore (digit)
             return (read n)
 
 {-
@@ -83,13 +85,13 @@ expr = leftAssoc Add term (char '+')
 
 term = leftAssoc Mul factor (char '*')
 
-factor = (Num <$> number) <|> (char '(' *> expr <* char ')' <|> function)
+factor = (Num <$> readsP) <|> (char '(' *> expr <* char ')' <|> function)
 
 function = (Sin <$> (string "sin" *> factor)) <|> (Cos <$> (string "cos" *> factor))
             <|> (Sin <$> (string "sin(" *> expr <* char ')')) <|> (Cos <$> (string "cos(" *> expr <* char ')'))
 
 leftAssoc :: (t->t->t) -> Parser t -> Parser sep -> Parser t
-leftAssoc op item sep = do  i:is <- chain item sep
+leftAssoc op item sep = do  (i:is) <- chain item sep
                             return (foldl op i is)
 
 prop_showReadExpression :: Double -> Expr -> Bool
