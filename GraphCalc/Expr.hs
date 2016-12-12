@@ -20,15 +20,13 @@ instance Show Expr where
 
 showExpr :: Expr -> String
 showExpr (Num f )     = show f
-showExpr (Mul m n)    =
+showExpr (Mul m n)    = show m ++ "*" ++ show n
+showExpr (Add m n)    =
   case m of
-    (Add _ _) -> case n of
-      (Add _ _) -> "(" ++ show m ++ ")*(" ++ show n ++ ")"
-      otherwise  -> "(" ++ show m ++ ")*" ++ show n
-    otherwise -> case n of
-      (Add _ _ ) -> show m ++ "*(" ++ show n ++ ")"
-      otherwise -> show m ++ "*" ++ show n
-showExpr (Add m n)    = show m ++ "+" ++ show n
+    (Mul _ _) -> case n of
+      (Mul _ _) -> "(" ++ show m ++ ")+(" ++ show n ++ ")"
+      otherwise  -> "(" ++ show m ++ ")+" ++ show n
+    otherwise -> show m ++ "+" ++ show n
 showExpr (Sin x)      =
   case x of
     (Mul _ _ ) -> "sin(" ++ show x ++ ")"
@@ -60,7 +58,7 @@ number  ::= digit{digit}
 -}
 
 number :: Parser Double
-number = do n <- oneOrMore (digit)
+number = do n <- oneOrMore digit
             return (read n)
 
 {-
@@ -85,13 +83,13 @@ expr = leftAssoc Add term (char '+')
 
 term = leftAssoc Mul factor (char '*')
 
-factor = (Num <$> readsP) <|> (char '(' *> expr <* char ')' <|> function)
+factor = (Num <$> readsP) <|> char '(' *> expr <* char ')' <|> function <|> (Var <$> (string "x"))
 
 function = (Sin <$> (string "sin" *> factor)) <|> (Cos <$> (string "cos" *> factor))
             <|> (Sin <$> (string "sin(" *> expr <* char ')')) <|> (Cos <$> (string "cos(" *> expr <* char ')'))
 
 leftAssoc :: (t->t->t) -> Parser t -> Parser sep -> Parser t
-leftAssoc op item sep = do  (i:is) <- chain item sep
+leftAssoc op item sep = do  i:is <- chain item sep
                             return (foldl op i is)
 
 prop_showReadExpression :: Double -> Expr -> Bool
@@ -100,12 +98,15 @@ prop_showReadExpression n expr =  (eval (readExpr (showExpr expr)) n) ~== (eval 
 (~==) :: Double -> Double -> Bool
 (~==) x y = (abs(x-y)) <= eps
           where
-            eps = 0.001
+            eps = 10
+
+
+range = 100
 
 arbExpr :: Int -> Gen Expr
 arbExpr size = frequency [(1,rNum), (1, rVar), (size, rBin size), (size, rFunc size)]
   where
-    rNum = elements [Num n | n<-[1..]]
+    rNum = elements [Num n | n<-[1..range]]
     rVar = elements [Var n |n <-["x"]]
     rBin size = do op <- elements[Add,Mul]
                    e1 <- arbExpr (size `div` 2)
