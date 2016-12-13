@@ -135,3 +135,22 @@ simplify expr = case expr of
 
 prop_simplify :: Expr -> Double -> Bool
 prop_simplify expr n = (eval (simplify expr) n) ~== (eval expr n)
+
+differentiate :: Expr -> Expr
+differentiate expr = simplify(simplify (diff expr))
+  where
+    diff    :: Expr -> Expr
+    diff expr = case expr of
+      (Var x)   -> Num 1
+      (Mul n m) -> Mul (diffMul n) (diffMul m)
+      (Add n m) -> Add (diffAdd n) (diffAdd m)
+      (Sin n)   -> Sin (diff n)
+      (Cos n)   -> Cos (diff n)
+    diffMul :: Expr -> Expr
+    diffMul expr = case expr of
+      (Num n)   -> (Num n)
+      otherwise -> diff expr
+    diffAdd :: Expr -> Expr
+    diffAdd expr = case expr of
+      (Num n)   -> (Num 0)
+      otherwise -> diff expr
