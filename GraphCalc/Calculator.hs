@@ -15,26 +15,7 @@ canWidth  = 300
 canHeight = 300
 
 readAndDraw :: Elem -> Canvas -> IO ()
-readAndDraw elem canvas = do -- how to fill?
-  expression  <- eval (readExpr (select elem)) -- reads & evals the expression
-  scale       <- case scale of
-        isDouble scaleVal  ->  scaleVal
-                otherwise -> 0.04
-                  where
-                    scale = select scale
-                    isDouble :: Double -> Bool
-                    isDouble num
-                      | floor num == ceiling num = True
-                      | otherwise = False
-  points      <- points expression 0.04 (canWidth,canHeight)
-
-
-diff :: Elem -> Canvas -> IO ()
-diff elem canvas = do -- how to fill?
-  expression  <- differentiate (eval (readExpr (select elem))) -- reads & evals the expression
-  points      <- points expression 0.04 (canWidth,canHeight)
-  -- how to handle bad expression?
-  return expression
+readAndDraw el canvas = undefined
 
 main = do
     -- Elements
@@ -63,8 +44,7 @@ main = do
     -- Interaction
     Just can <- getCanvas canvas
     onEvent draw  Click $ \_    -> readAndDraw input can
-    onEvent scale Click $ \_    -> readAndDraw input scaling can
-    onEvent diff  Click $ \_    -> diff input can
+    onEvent scale Click $ \_    -> readAndDraw input can
     onEvent input KeyUp $ \code -> when (code==13) $ readAndDraw input can
       -- "Enter" key has code 13
 

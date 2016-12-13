@@ -1,3 +1,5 @@
+module Expr
+where
 import Parsing
 import Data.Maybe
 import Test.QuickCheck
