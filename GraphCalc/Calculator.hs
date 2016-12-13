@@ -67,3 +67,7 @@ main = do
     onEvent diff  Click $ \_    -> diff input can
     onEvent input KeyUp $ \code -> when (code==13) $ readAndDraw input can
       -- "Enter" key has code 13
+
+
+points :: Expr -> Double -> (Int,Int) -> [Point]
+points expr scale (width,height) = path [(pixToReal n)|n<-[0..300] ]
