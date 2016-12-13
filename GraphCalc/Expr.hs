@@ -94,8 +94,6 @@ leftAssoc :: (t->t->t) -> Parser t -> Parser sep -> Parser t
 leftAssoc op item sep = do  i:is <- chain item sep
                             return (foldl op i is)
 
-prop_showReadExpression :: Expr -> Bool
-prop_showReadExpression  expr =  (readExpr (showExpr expr)) == expr
 
 (~==) :: Double -> Double -> Bool
 (~==) x y = (abs(x-y)) <= eps
@@ -133,5 +131,5 @@ simplify expr = case expr of
   (Sin n)         -> Sin (simplify n)
   (Cos n)         -> Cos (simplify n)
 
-prop_simplify :: Expr -> Double -> Bool
-prop_simplify expr n = (eval (simplify expr) n) ~== (eval expr n)
+points :: Expr -> Double -> (Int,Int) -> [Point]
+points expr scale (width,height) = undefined
