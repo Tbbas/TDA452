@@ -50,11 +50,11 @@ main = do
 
 
 points :: Expr -> Double -> (Int,Int) -> [Point]
-points expr scale (width,height) = [(x,realToPix yPos x) | x <- [0..width]]
+points expr scale (width,height) = [((fromIntegral x),realToPix (yPos x)) | x <- [0..width]]
               where
                 yPos x = eval expr (pixToReal (fromIntegral x))
                 pixToReal :: Double -> Double
-                pixToReal x = scale*(x-(width/2))
+                pixToReal x = scale * (x- fromIntegral (width `div` 2))
 
                 realToPix :: Double -> Double
-                realToPix y = -(y/scale)+(height/2)
+                realToPix y = -(y/scale) + fromIntegral (height `div` 2)

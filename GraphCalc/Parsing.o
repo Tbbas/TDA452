@@ -1,0 +1,2641 @@
+{-# LINE 1 "/tmp/ghc44c0_0/ghc_5.s" #-}
+.data
+	.align 4
+.align 1
+.globl __stginit_Parsing
+.type __stginit_Parsing, @object
+__stginit_Parsing:
+.data
+	.align 4
+.align 1
+.globl Parsing_item1_closure
+.type Parsing_item1_closure, @object
+Parsing_item1_closure:
+	.long	Parsing_item1_info
+.text
+	.align 4,0x90
+	.long	65541
+	.long	0
+	.long	15
+.globl Parsing_item1_info
+.type Parsing_item1_info, @object
+Parsing_item1_info:
+.Lc5dm:
+	movl 8(%ebx),%eax
+	leal -4(%ebp),%ecx
+	cmpl 840(%ebx),%ecx
+	jb .Lc5dn
+.Lc5do:
+	movl $c5dc_info,-4(%ebp)
+	movl %eax,%esi
+	addl $-4,%ebp
+	testw $7,%si
+	jne .Lc5dc
+.Lc5dd:
+	jmp *(%esi)
+.text
+	.align 4,0x90
+	.long	0
+	.long	32
+c5dc_info:
+.Lc5dc:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5dk
+.Lc5dl:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $4,%ebp
+	jmp *(%ebp)
+.Lc5dk:
+	addl $20,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5dy
+.Lc5dx:
+	movl 2(%esi),%eax
+	movl 6(%esi),%ecx
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	movl %eax,-12(%edi)
+	movl %ecx,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $4,%ebp
+	jmp *(%ebp)
+.Lc5dn:
+	movl %eax,8(%ebx)
+	movl $Parsing_item1_closure,%esi
+	jmp *-8(%ebx)
+.Lc5dy:
+	movl $20,904(%ebx)
+	jmp stg_gc_unpt_r1
+	.size Parsing_item1_info, .-Parsing_item1_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfAlternativeParser3_closure
+.type Parsing_zdfAlternativeParser3_closure, @object
+Parsing_zdfAlternativeParser3_closure:
+	.long	Parsing_zdfAlternativeParser3_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zdfAlternativeParser3_info
+.type Parsing_zdfAlternativeParser3_info, @object
+Parsing_zdfAlternativeParser3_info:
+.Lc5e1:
+	movl 24(%ebx),%eax
+	movl 16(%ebx),%ecx
+	movl 8(%ebx),%edx
+	movl %edx,64(%esp)
+	leal -8(%ebp),%edx
+	cmpl 840(%ebx),%edx
+	jb .Lc5e2
+.Lc5e3:
+	movl $c5dS_info,-8(%ebp)
+	movl %eax,8(%ebx)
+	movl %ecx,%esi
+	movl 64(%esp),%eax
+	movl %eax,-4(%ebp)
+	addl $-8,%ebp
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5dS_info:
+.Lc5dS:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5dZ
+.Lc5e0:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5dZ:
+	movl $c5e9_info,(%ebp)
+	movl 2(%esi),%esi
+	testw $7,%si
+	jne .Lc5e9
+.Lc5ea:
+	jmp *(%esi)
+.Lc5e2:
+	movl %eax,24(%ebx)
+	movl %ecx,16(%ebx)
+	movl 64(%esp),%eax
+	movl %eax,8(%ebx)
+	movl $Parsing_zdfAlternativeParser3_closure,%esi
+	jmp *-8(%ebx)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5e9_info:
+.Lc5e9:
+	addl $40,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5ek
+.Lc5ej:
+	movl 3(%esi),%eax
+	movl 7(%esi),%ecx
+	movl $stg_ap_2_upd_info,-36(%edi)
+	movl 4(%ebp),%edx
+	movl %edx,-24(%edi)
+	movl %eax,-20(%edi)
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	leal -36(%edi),%eax
+	movl %eax,-12(%edi)
+	movl %ecx,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5ek:
+	movl $40,904(%ebx)
+	jmp stg_gc_unpt_r1
+	.size Parsing_zdfAlternativeParser3_info, .-Parsing_zdfAlternativeParser3_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfMonadParser1_closure
+.type Parsing_zdfMonadParser1_closure, @object
+Parsing_zdfMonadParser1_closure:
+	.long	Parsing_zdfMonadParser1_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zdfMonadParser1_info
+.type Parsing_zdfMonadParser1_info, @object
+Parsing_zdfMonadParser1_info:
+.Lc5eP:
+	movl 24(%ebx),%eax
+	movl 16(%ebx),%ecx
+	movl 8(%ebx),%edx
+	movl %edx,64(%esp)
+	leal -8(%ebp),%edx
+	cmpl 840(%ebx),%edx
+	jb .Lc5eQ
+.Lc5eR:
+	movl $c5eG_info,-8(%ebp)
+	movl %eax,8(%ebx)
+	movl 64(%esp),%eax
+	movl %eax,%esi
+	movl %ecx,-4(%ebp)
+	addl $-8,%ebp
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5eG_info:
+.Lc5eG:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5eN
+.Lc5eO:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5eN:
+	movl $c5eX_info,(%ebp)
+	movl 2(%esi),%esi
+	testw $7,%si
+	jne .Lc5eX
+.Lc5eZ:
+	jmp *(%esi)
+.Lc5eQ:
+	movl %eax,24(%ebx)
+	movl %ecx,16(%ebx)
+	movl 64(%esp),%eax
+	movl %eax,8(%ebx)
+	movl $Parsing_zdfMonadParser1_closure,%esi
+	jmp *-8(%ebx)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5eX_info:
+.Lc5eX:
+	movl 7(%esi),%eax
+	movl %eax,16(%ebx)
+	movl 3(%esi),%eax
+	movl %eax,8(%ebx)
+	movl 4(%ebp),%esi
+	addl $8,%ebp
+	jmp stg_ap_pp_fast
+	.size Parsing_zdfMonadParser1_info, .-Parsing_zdfMonadParser1_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfAlternativeParser1_closure
+.type Parsing_zdfAlternativeParser1_closure, @object
+Parsing_zdfAlternativeParser1_closure:
+	.long	Parsing_zdfAlternativeParser1_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zdfAlternativeParser1_info
+.type Parsing_zdfAlternativeParser1_info, @object
+Parsing_zdfAlternativeParser1_info:
+.Lc5fu:
+	movl 24(%ebx),%eax
+	movl 16(%ebx),%ecx
+	movl 8(%ebx),%edx
+	movl %edx,64(%esp)
+	leal -12(%ebp),%edx
+	cmpl 840(%ebx),%edx
+	jb .Lc5fv
+.Lc5fw:
+	movl $c5fl_info,-12(%ebp)
+	movl %eax,8(%ebx)
+	movl 64(%esp),%edx
+	movl %edx,%esi
+	movl %ecx,-8(%ebp)
+	movl %eax,-4(%ebp)
+	addl $-12,%ebp
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	2
+	.long	32
+c5fl_info:
+.Lc5fl:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5fs
+.Lc5ft:
+	movl 8(%ebp),%eax
+	movl %eax,8(%ebx)
+	movl 4(%ebp),%esi
+	addl $12,%ebp
+	jmp stg_ap_p_fast
+.Lc5fs:
+	andl $-8,%esi
+	addl $12,%ebp
+	jmp *(%esi)
+.Lc5fv:
+	movl %eax,24(%ebx)
+	movl %ecx,16(%ebx)
+	movl 64(%esp),%eax
+	movl %eax,8(%ebx)
+	movl $Parsing_zdfAlternativeParser1_closure,%esi
+	jmp *-8(%ebx)
+	.size Parsing_zdfAlternativeParser1_info, .-Parsing_zdfAlternativeParser1_info
+.data
+	.align 4
+.align 1
+.globl Parsing_failure1_closure
+.type Parsing_failure1_closure, @object
+Parsing_failure1_closure:
+	.long	Parsing_failure1_info
+.text
+	.align 4,0x90
+	.long	65541
+	.long	0
+	.long	15
+.globl Parsing_failure1_info
+.type Parsing_failure1_info, @object
+Parsing_failure1_info:
+.Lc5fQ:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	jmp *(%ebp)
+	.size Parsing_failure1_info, .-Parsing_failure1_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfAlternativeParser4_closure
+.type Parsing_zdfAlternativeParser4_closure, @object
+Parsing_zdfAlternativeParser4_closure:
+	.long	Parsing_zdfAlternativeParser4_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+.globl Parsing_zdfAlternativeParser4_info
+.type Parsing_zdfAlternativeParser4_info, @object
+Parsing_zdfAlternativeParser4_info:
+.Lc5g3:
+	addl $20,%edi
+	movl 16(%ebx),%eax
+	movl 8(%ebx),%ecx
+	cmpl 856(%ebx),%edi
+	ja .Lc5g7
+.Lc5g6:
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	movl %ecx,-12(%edi)
+	movl %eax,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	jmp *(%ebp)
+.Lc5g7:
+	movl $20,904(%ebx)
+	movl %eax,16(%ebx)
+	movl %ecx,8(%ebx)
+	movl $Parsing_zdfAlternativeParser4_closure,%esi
+	jmp *-8(%ebx)
+	.size Parsing_zdfAlternativeParser4_info, .-Parsing_zdfAlternativeParser4_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfAlternativeParserzuzdsliftM_closure
+.type Parsing_zdfAlternativeParserzuzdsliftM_closure, @object
+Parsing_zdfAlternativeParserzuzdsliftM_closure:
+	.long	Parsing_zdfAlternativeParserzuzdsliftM_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zdfAlternativeParserzuzdsliftM_info
+.type Parsing_zdfAlternativeParserzuzdsliftM_info, @object
+Parsing_zdfAlternativeParserzuzdsliftM_info:
+.Lc5gh:
+	movl 24(%ebx),%eax
+	movl %eax,24(%ebx)
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_zdfAlternativeParser3_info
+	.size Parsing_zdfAlternativeParserzuzdsliftM_info, .-Parsing_zdfAlternativeParserzuzdsliftM_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfAlternativeParser2_closure
+.type Parsing_zdfAlternativeParser2_closure, @object
+Parsing_zdfAlternativeParser2_closure:
+	.long	Parsing_zdfAlternativeParser2_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zdfAlternativeParser2_info
+.type Parsing_zdfAlternativeParser2_info, @object
+Parsing_zdfAlternativeParser2_info:
+.Lc5gS:
+	movl 24(%ebx),%eax
+	movl 16(%ebx),%ecx
+	movl 8(%ebx),%edx
+	movl %edx,64(%esp)
+	leal -8(%ebp),%edx
+	cmpl 840(%ebx),%edx
+	jb .Lc5gT
+.Lc5gU:
+	movl $c5gJ_info,-8(%ebp)
+	movl %eax,8(%ebx)
+	movl 64(%esp),%eax
+	movl %eax,%esi
+	movl %ecx,-4(%ebp)
+	addl $-8,%ebp
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5gJ_info:
+.Lc5gJ:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jb .Lc5hw
+.Lc5gQ:
+	movl $c5h0_info,(%ebp)
+	movl 2(%esi),%esi
+	testw $7,%si
+	jne .Lc5h0
+.Lc5h2:
+	jmp *(%esi)
+.Lc5gT:
+	movl %eax,24(%ebx)
+	movl %ecx,16(%ebx)
+	movl 64(%esp),%eax
+	movl %eax,8(%ebx)
+	movl $Parsing_zdfAlternativeParser2_closure,%esi
+	jmp *-8(%ebx)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5h0_info:
+.Lc5h0:
+	movl $c5h6_info,(%ebp)
+	movl 7(%esi),%eax
+	movl %eax,8(%ebx)
+	movl 3(%esi),%eax
+	movl 4(%ebp),%esi
+	movl %eax,4(%ebp)
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5h6_info:
+.Lc5h6:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jb .Lc5hw
+.Lc5hv:
+	movl $c5hg_info,(%ebp)
+	movl 2(%esi),%esi
+	testw $7,%si
+	jne .Lc5hg
+.Lc5hh:
+	jmp *(%esi)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5hg_info:
+.Lc5hg:
+	addl $40,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5hs
+.Lc5hr:
+	movl 3(%esi),%eax
+	movl 7(%esi),%ecx
+	movl $stg_ap_2_upd_info,-36(%edi)
+	movl 4(%ebp),%edx
+	movl %edx,-24(%edi)
+	movl %eax,-20(%edi)
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	leal -36(%edi),%eax
+	movl %eax,-12(%edi)
+	movl %ecx,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5hs:
+	movl $40,904(%ebx)
+	jmp stg_gc_unpt_r1
+.Lc5hw:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+	.size Parsing_zdfAlternativeParser2_info, .-Parsing_zdfAlternativeParser2_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfAlternativeParserzuzdsap_closure
+.type Parsing_zdfAlternativeParserzuzdsap_closure, @object
+Parsing_zdfAlternativeParserzuzdsap_closure:
+	.long	Parsing_zdfAlternativeParserzuzdsap_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zdfAlternativeParserzuzdsap_info
+.type Parsing_zdfAlternativeParserzuzdsap_info, @object
+Parsing_zdfAlternativeParserzuzdsap_info:
+.Lc5hO:
+	movl 24(%ebx),%eax
+	movl %eax,24(%ebx)
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_zdfAlternativeParser2_info
+	.size Parsing_zdfAlternativeParserzuzdsap_info, .-Parsing_zdfAlternativeParserzuzdsap_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfMonadParserzuzdszddmfail_closure
+.type Parsing_zdfMonadParserzuzdszddmfail_closure, @object
+Parsing_zdfMonadParserzuzdszddmfail_closure:
+	.long	Parsing_zdfMonadParserzuzdszddmfail_info
+	.long	0
+.text
+	.align 4,0x90
+	.long	S5i5_srt-(Parsing_zdfMonadParserzuzdszddmfail_info)+0
+	.long	65541
+	.long	0
+	.long	65551
+.globl Parsing_zdfMonadParserzuzdszddmfail_info
+.type Parsing_zdfMonadParserzuzdszddmfail_info, @object
+Parsing_zdfMonadParserzuzdszddmfail_info:
+.Lc5i2:
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp base_GHCziErr_error_info
+	.size Parsing_zdfMonadParserzuzdszddmfail_info, .-Parsing_zdfMonadParserzuzdszddmfail_info
+.data
+	.align 4
+.align 1
+.globl Parsing_sat1_closure
+.type Parsing_sat1_closure, @object
+Parsing_sat1_closure:
+	.long	Parsing_sat1_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+.globl Parsing_sat1_info
+.type Parsing_sat1_info, @object
+Parsing_sat1_info:
+.Lc5ix:
+	movl 16(%ebx),%eax
+	movl 8(%ebx),%ecx
+	leal -12(%ebp),%edx
+	cmpl 840(%ebx),%edx
+	jb .Lc5iy
+.Lc5iz:
+	movl $c5in_info,-8(%ebp)
+	movl %eax,%esi
+	movl %ecx,-4(%ebp)
+	addl $-8,%ebp
+	testw $7,%si
+	jne .Lc5in
+.Lc5io:
+	jmp *(%esi)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5in_info:
+.Lc5in:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jb .Lc5iY
+.Lc5iv:
+	movl $c5iF_info,-4(%ebp)
+	movl 2(%esi),%eax
+	movl %eax,8(%ebx)
+	movl 6(%esi),%ecx
+	movl 4(%ebp),%esi
+	movl %ecx,(%ebp)
+	movl %eax,4(%ebp)
+	addl $-4,%ebp
+	jmp stg_ap_p_fast
+.Lc5iy:
+	movl %eax,16(%ebx)
+	movl %ecx,8(%ebx)
+	movl $Parsing_sat1_closure,%esi
+	jmp *-8(%ebx)
+.text
+	.align 4,0x90
+	.long	2
+	.long	32
+c5iF_info:
+.Lc5iF:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5iX
+.Lu5iZ:
+	addl $4,%ebp
+.Lc5iY:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5iX:
+	addl $20,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5iU
+.Lc5iT:
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	movl 8(%ebp),%eax
+	movl %eax,-12(%edi)
+	movl 4(%ebp),%eax
+	movl %eax,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $12,%ebp
+	jmp *(%ebp)
+.Lc5iU:
+	movl $20,904(%ebx)
+	jmp stg_gc_unpt_r1
+	.size Parsing_sat1_info, .-Parsing_sat1_info
+.data
+	.align 4
+.align 1
+.globl Parsing_sat_closure
+.type Parsing_sat_closure, @object
+Parsing_sat_closure:
+	.long	Parsing_sat_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+.globl Parsing_sat_info
+.type Parsing_sat_info, @object
+Parsing_sat_info:
+.Lc5jg:
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_sat1_info
+	.size Parsing_sat_info, .-Parsing_sat_info
+.data
+	.align 4
+.align 1
+.globl Parsing_digit1_closure
+.type Parsing_digit1_closure, @object
+Parsing_digit1_closure:
+	.long	Parsing_digit1_info
+.text
+	.align 4,0x90
+	.long	65541
+	.long	0
+	.long	15
+.globl Parsing_digit1_info
+.type Parsing_digit1_info, @object
+Parsing_digit1_info:
+.Lc5k0:
+	movl 8(%ebx),%eax
+	leal -8(%ebp),%ecx
+	cmpl 840(%ebx),%ecx
+	jb .Lc5k1
+.Lc5k2:
+	movl $c5jQ_info,-4(%ebp)
+	movl %eax,%esi
+	addl $-4,%ebp
+	testw $7,%si
+	jne .Lc5jQ
+.Lc5jR:
+	jmp *(%esi)
+.text
+	.align 4,0x90
+	.long	0
+	.long	32
+c5jQ_info:
+.Lc5jQ:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5jY
+.Lc5jZ:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $4,%ebp
+	jmp *(%ebp)
+.Lc5jY:
+	movl $c5k8_info,-4(%ebp)
+	movl 6(%esi),%eax
+	movl 2(%esi),%esi
+	movl %eax,(%ebp)
+	addl $-4,%ebp
+	testw $7,%si
+	jne .Lc5k8
+.Lc5ka:
+	jmp *(%esi)
+.Lc5k1:
+	movl %eax,8(%ebx)
+	movl $Parsing_digit1_closure,%esi
+	jmp *-8(%ebx)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5k8_info:
+.Lc5k8:
+	addl $20,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5kg
+.Lc5kf:
+	movl 3(%esi),%eax
+	addl $-48,%eax
+	cmpl $9,%eax
+	jbe .Lc5kC
+.Lc5kD:
+	addl $-20,%edi
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5kg:
+	movl $20,904(%ebx)
+	jmp stg_gc_unpt_r1
+.Lc5kC:
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	movl %esi,-12(%edi)
+	movl 4(%ebp),%eax
+	movl %eax,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+	.size Parsing_digit1_info, .-Parsing_digit1_info
+.data
+	.align 4
+.align 1
+.globl Parsing_digit_closure
+.type Parsing_digit_closure, @object
+Parsing_digit_closure:
+	.long	Parsing_digit_info
+.text
+	.align 4,0x90
+	.long	65541
+	.long	0
+	.long	15
+.globl Parsing_digit_info
+.type Parsing_digit_info, @object
+Parsing_digit_info:
+.Lc5kT:
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_digit1_info
+	.size Parsing_digit_info, .-Parsing_digit_info
+.data
+	.align 4
+.align 1
+.globl Parsing_char1_closure
+.type Parsing_char1_closure, @object
+Parsing_char1_closure:
+	.long	Parsing_char1_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+.globl Parsing_char1_info
+.type Parsing_char1_info, @object
+Parsing_char1_info:
+.Lc5lw:
+	movl 16(%ebx),%eax
+	movl 8(%ebx),%ecx
+	leal -16(%ebp),%edx
+	cmpl 840(%ebx),%edx
+	jb .Lc5lx
+.Lc5ly:
+	movl $c5lm_info,-8(%ebp)
+	movl %eax,%esi
+	movl %ecx,-4(%ebp)
+	addl $-8,%ebp
+	testw $7,%si
+	jne .Lc5lm
+.Lc5ln:
+	jmp *(%esi)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5lm_info:
+.Lc5lm:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5lu
+.Lc5lv:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5lu:
+	movl $c5lE_info,-4(%ebp)
+	movl 6(%esi),%eax
+	movl 2(%esi),%esi
+	movl %eax,(%ebp)
+	addl $-4,%ebp
+	testw $7,%si
+	jne .Lc5lE
+.Lc5lF:
+	jmp *(%esi)
+.Lc5lx:
+	movl %eax,16(%ebx)
+	movl %ecx,8(%ebx)
+	movl $Parsing_char1_closure,%esi
+	jmp *-8(%ebx)
+.text
+	.align 4,0x90
+	.long	2
+	.long	32
+c5lE_info:
+.Lc5lE:
+	movl $c5lJ_info,-4(%ebp)
+	movl %esi,%eax
+	movl 3(%esi),%ecx
+	movl 8(%ebp),%esi
+	movl %ecx,(%ebp)
+	movl %eax,8(%ebp)
+	addl $-4,%ebp
+	testw $7,%si
+	jne .Lc5lJ
+.Lc5lM:
+	jmp *(%esi)
+.text
+	.align 4,0x90
+	.long	67
+	.long	32
+c5lJ_info:
+.Lc5lJ:
+	addl $20,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5lS
+.Lc5lR:
+	movl 4(%ebp),%eax
+	cmpl 3(%esi),%eax
+	je .Lc5m5
+.Lc5m6:
+	addl $-20,%edi
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $16,%ebp
+	jmp *(%ebp)
+.Lc5lS:
+	movl $20,904(%ebx)
+	jmp stg_gc_unpt_r1
+.Lc5m5:
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	movl 12(%ebp),%eax
+	movl %eax,-12(%edi)
+	movl 8(%ebp),%eax
+	movl %eax,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $16,%ebp
+	jmp *(%ebp)
+	.size Parsing_char1_info, .-Parsing_char1_info
+.data
+	.align 4
+.align 1
+.globl Parsing_char_closure
+.type Parsing_char_closure, @object
+Parsing_char_closure:
+	.long	Parsing_char_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+.globl Parsing_char_info
+.type Parsing_char_info, @object
+Parsing_char_info:
+.Lc5mm:
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_char1_info
+	.size Parsing_char_info, .-Parsing_char_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zgztzg_closure
+.type Parsing_zgztzg_closure, @object
+Parsing_zgztzg_closure:
+	.long	Parsing_zgztzg_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zgztzg_info
+.type Parsing_zgztzg_info, @object
+Parsing_zgztzg_info:
+.Lc5mz:
+	movl 24(%ebx),%eax
+	movl %eax,24(%ebx)
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_zdfMonadParser1_info
+	.size Parsing_zgztzg_info, .-Parsing_zgztzg_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zpzpzp_closure
+.type Parsing_zpzpzp_closure, @object
+Parsing_zpzpzp_closure:
+	.long	Parsing_zpzpzp_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zpzpzp_info
+.type Parsing_zpzpzp_info, @object
+Parsing_zpzpzp_info:
+.Lc5mN:
+	movl 24(%ebx),%eax
+	movl %eax,24(%ebx)
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_zdfAlternativeParser1_info
+	.size Parsing_zpzpzp_info, .-Parsing_zpzpzp_info
+.data
+	.align 4
+.align 1
+.globl Parsing_item_closure
+.type Parsing_item_closure, @object
+Parsing_item_closure:
+	.long	Parsing_item_info
+.text
+	.align 4,0x90
+	.long	65541
+	.long	0
+	.long	15
+.globl Parsing_item_info
+.type Parsing_item_info, @object
+Parsing_item_info:
+.Lc5n1:
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_item1_info
+	.size Parsing_item_info, .-Parsing_item_info
+.data
+	.align 4
+.align 1
+.globl Parsing_success_closure
+.type Parsing_success_closure, @object
+Parsing_success_closure:
+	.long	Parsing_success_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+.globl Parsing_success_info
+.type Parsing_success_info, @object
+Parsing_success_info:
+.Lc5nd:
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_zdfAlternativeParser4_info
+	.size Parsing_success_info, .-Parsing_success_info
+.data
+	.align 4
+.align 1
+.globl Parsing_failure_closure
+.type Parsing_failure_closure, @object
+Parsing_failure_closure:
+	.long	Parsing_failure_info
+.text
+	.align 4,0x90
+	.long	65541
+	.long	0
+	.long	15
+.globl Parsing_failure_info
+.type Parsing_failure_info, @object
+Parsing_failure_info:
+.Lc5nq:
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_failure1_info
+	.size Parsing_failure_info, .-Parsing_failure_info
+.data
+	.align 4
+.align 1
+.globl Parsing_readsP_closure
+.type Parsing_readsP_closure, @object
+Parsing_readsP_closure:
+	.long	Parsing_readsP_info
+.text
+	.align 4,0x90
+	.long	1
+	.long	17
+s5aI_info:
+.Lc5nM:
+	leal -20(%ebp),%eax
+	cmpl 840(%ebx),%eax
+	jb .Lc5nN
+.Lc5nO:
+	movl $stg_upd_frame_info,-12(%ebp)
+	movl %esi,-8(%ebp)
+	movl 12(%esi),%eax
+	movl %eax,8(%ebx)
+	movl $stg_ap_p_info,-20(%ebp)
+	movl $base_TextziParserCombinatorsziReadPrec_minPrec_closure,-16(%ebp)
+	addl $-20,%ebp
+	jmp base_GHCziRead_readsPrec_info
+.Lc5nN:
+	jmp *-16(%ebx)
+	.size s5aI_info, .-s5aI_info
+.text
+	.align 4,0x90
+	.long	65541
+	.long	1
+	.long	10
+s5aN_info:
+.Lc5o3:
+	movl 8(%ebx),%eax
+	leal -4(%ebp),%ecx
+	cmpl 840(%ebx),%ecx
+	jb .Lc5o4
+.Lc5o5:
+	movl $c5nU_info,-4(%ebp)
+	movl %eax,8(%ebx)
+	movl 3(%esi),%esi
+	addl $-4,%ebp
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	0
+	.long	32
+c5nU_info:
+.Lc5nU:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5o1
+.Lc5o2:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $4,%ebp
+	jmp *(%ebp)
+.Lc5o1:
+	addl $8,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5oe
+.Lc5od:
+	movl 2(%esi),%eax
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $4,%ebp
+	jmp *(%ebp)
+.Lc5o4:
+	movl %eax,8(%ebx)
+	jmp *-8(%ebx)
+.Lc5oe:
+	movl $8,904(%ebx)
+	jmp stg_gc_unpt_r1
+	.size s5aN_info, .-s5aN_info
+.text
+	.align 4,0x90
+	.long	65541
+	.long	0
+	.long	15
+.globl Parsing_readsP_info
+.type Parsing_readsP_info, @object
+Parsing_readsP_info:
+.Lc5of:
+	addl $24,%edi
+	movl 8(%ebx),%eax
+	cmpl 856(%ebx),%edi
+	ja .Lc5oj
+.Lc5oi:
+	movl $s5aI_info,-20(%edi)
+	movl %eax,-8(%edi)
+	movl $s5aN_info,-4(%edi)
+	leal -20(%edi),%eax
+	movl %eax,(%edi)
+	leal -3(%edi),%esi
+	jmp *(%ebp)
+.Lc5oj:
+	movl $24,904(%ebx)
+	movl %eax,8(%ebx)
+	movl $Parsing_readsP_closure,%esi
+	jmp *-8(%ebx)
+	.size Parsing_readsP_info, .-Parsing_readsP_info
+.data
+	.align 4
+.align 1
+.globl Parsing_parse_closure
+.type Parsing_parse_closure, @object
+Parsing_parse_closure:
+	.long	Parsing_parse_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+.globl Parsing_parse_info
+.type Parsing_parse_info, @object
+Parsing_parse_info:
+.Lc5oC:
+	movl 8(%ebx),%eax
+	movl 16(%ebx),%ecx
+	movl %ecx,8(%ebx)
+	movl %eax,%esi
+	jmp stg_ap_p_fast
+	.size Parsing_parse_info, .-Parsing_parse_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfFunctorParser1_closure
+.type Parsing_zdfFunctorParser1_closure, @object
+Parsing_zdfFunctorParser1_closure:
+	.long	Parsing_zdfFunctorParser1_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zdfFunctorParser1_info
+.type Parsing_zdfFunctorParser1_info, @object
+Parsing_zdfFunctorParser1_info:
+.Lc5p4:
+	movl 24(%ebx),%eax
+	movl 16(%ebx),%ecx
+	movl 8(%ebx),%edx
+	movl %edx,64(%esp)
+	leal -8(%ebp),%edx
+	cmpl 840(%ebx),%edx
+	jb .Lc5p5
+.Lc5p6:
+	movl $c5oV_info,-8(%ebp)
+	movl %eax,8(%ebx)
+	movl %ecx,%esi
+	movl 64(%esp),%eax
+	movl %eax,-4(%ebp)
+	addl $-8,%ebp
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5oV_info:
+.Lc5oV:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5p2
+.Lc5p3:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5p2:
+	movl $c5pc_info,(%ebp)
+	movl 2(%esi),%esi
+	testw $7,%si
+	jne .Lc5pc
+.Lc5pd:
+	jmp *(%esi)
+.Lc5p5:
+	movl %eax,24(%ebx)
+	movl %ecx,16(%ebx)
+	movl 64(%esp),%eax
+	movl %eax,8(%ebx)
+	movl $Parsing_zdfFunctorParser1_closure,%esi
+	jmp *-8(%ebx)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5pc_info:
+.Lc5pc:
+	addl $20,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5pm
+.Lc5pl:
+	movl 7(%esi),%eax
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	movl 4(%ebp),%ecx
+	movl %ecx,-12(%edi)
+	movl %eax,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5pm:
+	movl $20,904(%ebx)
+	jmp stg_gc_unpt_r1
+	.size Parsing_zdfFunctorParser1_info, .-Parsing_zdfFunctorParser1_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfFunctorParserzuzdczlzd_closure
+.type Parsing_zdfFunctorParserzuzdczlzd_closure, @object
+Parsing_zdfFunctorParserzuzdczlzd_closure:
+	.long	Parsing_zdfFunctorParserzuzdczlzd_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zdfFunctorParserzuzdczlzd_info
+.type Parsing_zdfFunctorParserzuzdczlzd_info, @object
+Parsing_zdfFunctorParserzuzdczlzd_info:
+.Lc5pA:
+	movl 24(%ebx),%eax
+	movl %eax,24(%ebx)
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_zdfFunctorParser1_info
+	.size Parsing_zdfFunctorParserzuzdczlzd_info, .-Parsing_zdfFunctorParserzuzdczlzd_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdwa_closure
+.type Parsing_zdwa_closure, @object
+Parsing_zdwa_closure:
+	.long	Parsing_zdwa_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+.globl Parsing_zdwa_info
+.type Parsing_zdwa_info, @object
+Parsing_zdwa_info:
+.Lc5qa:
+	movl 16(%ebx),%eax
+	movl 8(%ebx),%ecx
+	leal -12(%ebp),%edx
+	cmpl 840(%ebx),%edx
+	jb .Lc5qb
+.Lc5qc:
+	movl $c5q1_info,-12(%ebp)
+	movl %eax,8(%ebx)
+	movl %ecx,%esi
+	movl %ecx,-8(%ebp)
+	movl %eax,-4(%ebp)
+	addl $-12,%ebp
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	2
+	.long	32
+c5q1_info:
+.Lc5q1:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5q8
+.Lc5q9:
+	addl $12,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5qi
+.Lc5qh:
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-8(%edi)
+	movl $ghczmprim_GHCziTypes_ZMZN_closure+1,-4(%edi)
+	movl 8(%ebp),%eax
+	movl %eax,(%edi)
+	leal -7(%edi),%esi
+	addl $12,%ebp
+	jmp *(%ebp)
+.Lc5q8:
+	movl $c5ql_info,(%ebp)
+	movl 2(%esi),%esi
+	testw $7,%si
+	jne .Lc5ql
+.Lc5qm:
+	jmp *(%esi)
+.Lc5qb:
+	movl %eax,16(%ebx)
+	movl %ecx,8(%ebx)
+	movl $Parsing_zdwa_closure,%esi
+	jmp *-8(%ebx)
+.Lc5qi:
+	movl $12,904(%ebx)
+	jmp stg_gc_unpt_r1
+.text
+	.align 4,0x90
+	.long	130
+	.long	32
+c5ql_info:
+.Lc5ql:
+	movl 4(%ebp),%eax
+	movl $c5qq_info,4(%ebp)
+	movl 7(%esi),%ecx
+	movl %ecx,16(%ebx)
+	movl %eax,8(%ebx)
+	movl 3(%esi),%eax
+	movl %eax,8(%ebp)
+	addl $4,%ebp
+	jmp Parsing_zdwa_info
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5qq_info:
+.Lc5qq:
+	movl $c5qs_info,(%ebp)
+	testw $7,%si
+	jne .Lc5qs
+.Lc5qt:
+	jmp *(%esi)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5qs_info:
+.Lc5qs:
+	addl $24,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5qE
+.Lc5qD:
+	movl 3(%esi),%eax
+	movl 7(%esi),%ecx
+	movl $ghczmprim_GHCziTypes_ZC_con_info,-20(%edi)
+	movl 4(%ebp),%edx
+	movl %edx,-16(%edi)
+	movl %eax,-12(%edi)
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-8(%edi)
+	leal -18(%edi),%eax
+	movl %eax,-4(%edi)
+	movl %ecx,(%edi)
+	leal -7(%edi),%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5qE:
+	movl $24,904(%ebx)
+	jmp stg_gc_unpt_r1
+	.size Parsing_zdwa_info, .-Parsing_zdwa_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zzeroOrMore1_closure
+.type Parsing_zzeroOrMore1_closure, @object
+Parsing_zzeroOrMore1_closure:
+	.long	Parsing_zzeroOrMore1_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+.globl Parsing_zzeroOrMore1_info
+.type Parsing_zzeroOrMore1_info, @object
+Parsing_zzeroOrMore1_info:
+.Lc5qY:
+	movl 16(%ebx),%eax
+	movl 8(%ebx),%ecx
+	leal -4(%ebp),%edx
+	cmpl 840(%ebx),%edx
+	jb .Lc5qZ
+.Lc5r0:
+	movl $c5qV_info,-4(%ebp)
+	movl %eax,16(%ebx)
+	movl %ecx,8(%ebx)
+	addl $-4,%ebp
+	jmp Parsing_zdwa_info
+.text
+	.align 4,0x90
+	.long	0
+	.long	32
+c5qV_info:
+.Lc5qV:
+	addl $8,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5r3
+.Lc5r2:
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	movl %esi,(%edi)
+	leal -2(%edi),%esi
+	addl $4,%ebp
+	jmp *(%ebp)
+.Lc5qZ:
+	movl %eax,16(%ebx)
+	movl %ecx,8(%ebx)
+	movl $Parsing_zzeroOrMore1_closure,%esi
+	jmp *-8(%ebx)
+.Lc5r3:
+	movl $8,904(%ebx)
+	jmp stg_gc_unpt_r1
+	.size Parsing_zzeroOrMore1_info, .-Parsing_zzeroOrMore1_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zzeroOrMore_closure
+.type Parsing_zzeroOrMore_closure, @object
+Parsing_zzeroOrMore_closure:
+	.long	Parsing_zzeroOrMore_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+.globl Parsing_zzeroOrMore_info
+.type Parsing_zzeroOrMore_info, @object
+Parsing_zzeroOrMore_info:
+.Lc5rd:
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_zzeroOrMore1_info
+	.size Parsing_zzeroOrMore_info, .-Parsing_zzeroOrMore_info
+.data
+	.align 4
+.align 1
+.globl Parsing_oneOrMore1_closure
+.type Parsing_oneOrMore1_closure, @object
+Parsing_oneOrMore1_closure:
+	.long	Parsing_oneOrMore1_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+.globl Parsing_oneOrMore1_info
+.type Parsing_oneOrMore1_info, @object
+Parsing_oneOrMore1_info:
+.Lc5rK:
+	movl 16(%ebx),%eax
+	movl 8(%ebx),%ecx
+	leal -8(%ebp),%edx
+	cmpl 840(%ebx),%edx
+	jb .Lc5rL
+.Lc5rM:
+	movl $c5rB_info,-8(%ebp)
+	movl %eax,8(%ebx)
+	movl %ecx,%esi
+	movl %ecx,-4(%ebp)
+	addl $-8,%ebp
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5rB_info:
+.Lc5rB:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5rI
+.Lc5rJ:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5rI:
+	movl $c5rS_info,(%ebp)
+	movl 2(%esi),%esi
+	testw $7,%si
+	jne .Lc5rS
+.Lc5rT:
+	jmp *(%esi)
+.Lc5rL:
+	movl %eax,16(%ebx)
+	movl %ecx,8(%ebx)
+	movl $Parsing_oneOrMore1_closure,%esi
+	jmp *-8(%ebx)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5rS_info:
+.Lc5rS:
+	movl $c5rX_info,(%ebp)
+	movl 7(%esi),%eax
+	movl %eax,16(%ebx)
+	movl 4(%ebp),%eax
+	movl %eax,8(%ebx)
+	movl 3(%esi),%eax
+	movl %eax,4(%ebp)
+	jmp Parsing_zdwa_info
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5rX_info:
+.Lc5rX:
+	movl $c5rZ_info,(%ebp)
+	testw $7,%si
+	jne .Lc5rZ
+.Lc5s0:
+	jmp *(%esi)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5rZ_info:
+.Lc5rZ:
+	addl $32,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5sc
+.Lc5sb:
+	movl 3(%esi),%eax
+	movl 7(%esi),%ecx
+	movl $ghczmprim_GHCziTypes_ZC_con_info,-28(%edi)
+	movl 4(%ebp),%edx
+	movl %edx,-24(%edi)
+	movl %eax,-20(%edi)
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	leal -26(%edi),%eax
+	movl %eax,-12(%edi)
+	movl %ecx,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5sc:
+	movl $32,904(%ebx)
+	jmp stg_gc_unpt_r1
+	.size Parsing_oneOrMore1_info, .-Parsing_oneOrMore1_info
+.data
+	.align 4
+.align 1
+.globl Parsing_oneOrMore_closure
+.type Parsing_oneOrMore_closure, @object
+Parsing_oneOrMore_closure:
+	.long	Parsing_oneOrMore_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+.globl Parsing_oneOrMore_info
+.type Parsing_oneOrMore_info, @object
+Parsing_oneOrMore_info:
+.Lc5su:
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_oneOrMore1_info
+	.size Parsing_oneOrMore_info, .-Parsing_oneOrMore_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfFunctorParser_closure
+.type Parsing_zdfFunctorParser_closure, @object
+Parsing_zdfFunctorParser_closure:
+	.long	base_GHCziBase_DZCFunctor_static_info
+	.long	Parsing_zdfAlternativeParser3_closure+3
+	.long	Parsing_zdfFunctorParser1_closure+3
+	.long	1
+.data
+	.align 4
+.align 1
+.globl Parsing_zlZCzg1_closure
+.type Parsing_zlZCzg1_closure, @object
+Parsing_zlZCzg1_closure:
+	.long	Parsing_zlZCzg1_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zlZCzg1_info
+.type Parsing_zlZCzg1_info, @object
+Parsing_zlZCzg1_info:
+.Lc5t6:
+	movl 24(%ebx),%eax
+	movl 16(%ebx),%ecx
+	movl 8(%ebx),%edx
+	movl %edx,64(%esp)
+	leal -8(%ebp),%edx
+	cmpl 840(%ebx),%edx
+	jb .Lc5t7
+.Lc5t8:
+	movl $c5sX_info,-8(%ebp)
+	movl %eax,8(%ebx)
+	movl 64(%esp),%eax
+	movl %eax,%esi
+	movl %ecx,-4(%ebp)
+	addl $-8,%ebp
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5sX_info:
+.Lc5sX:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jb .Lc5tK
+.Lc5t4:
+	movl $c5te_info,(%ebp)
+	movl 2(%esi),%esi
+	testw $7,%si
+	jne .Lc5te
+.Lc5tg:
+	jmp *(%esi)
+.Lc5t7:
+	movl %eax,24(%ebx)
+	movl %ecx,16(%ebx)
+	movl 64(%esp),%eax
+	movl %eax,8(%ebx)
+	movl $Parsing_zlZCzg1_closure,%esi
+	jmp *-8(%ebx)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5te_info:
+.Lc5te:
+	movl $c5tk_info,(%ebp)
+	movl 7(%esi),%eax
+	movl %eax,8(%ebx)
+	movl 3(%esi),%eax
+	movl 4(%ebp),%esi
+	movl %eax,4(%ebp)
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5tk_info:
+.Lc5tk:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jb .Lc5tK
+.Lc5tJ:
+	movl $c5tu_info,(%ebp)
+	movl 2(%esi),%esi
+	testw $7,%si
+	jne .Lc5tu
+.Lc5tv:
+	jmp *(%esi)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5tu_info:
+.Lc5tu:
+	addl $32,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5tG
+.Lc5tF:
+	movl 3(%esi),%eax
+	movl 7(%esi),%ecx
+	movl $ghczmprim_GHCziTypes_ZC_con_info,-28(%edi)
+	movl 4(%ebp),%edx
+	movl %edx,-24(%edi)
+	movl %eax,-20(%edi)
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	leal -26(%edi),%eax
+	movl %eax,-12(%edi)
+	movl %ecx,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5tG:
+	movl $32,904(%ebx)
+	jmp stg_gc_unpt_r1
+.Lc5tK:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+	.size Parsing_zlZCzg1_info, .-Parsing_zlZCzg1_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zlZCzg_closure
+.type Parsing_zlZCzg_closure, @object
+Parsing_zlZCzg_closure:
+	.long	Parsing_zlZCzg_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zlZCzg_info
+.type Parsing_zlZCzg_info, @object
+Parsing_zlZCzg_info:
+.Lc5u2:
+	movl 24(%ebx),%eax
+	movl %eax,24(%ebx)
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_zlZCzg1_info
+	.size Parsing_zlZCzg_info, .-Parsing_zlZCzg_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfApplicativeParser2_closure
+.type Parsing_zdfApplicativeParser2_closure, @object
+Parsing_zdfApplicativeParser2_closure:
+	.long	Parsing_zdfApplicativeParser2_info
+.text
+	.align 4,0x90
+	.long	65541
+	.long	1
+	.long	10
+s5bV_info:
+.Lc5uC:
+	movl 8(%ebx),%eax
+	leal -4(%ebp),%ecx
+	cmpl 840(%ebx),%ecx
+	jb .Lc5uD
+.Lc5uE:
+	movl $c5ut_info,-4(%ebp)
+	movl %eax,8(%ebx)
+	movl 3(%esi),%esi
+	addl $-4,%ebp
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	0
+	.long	32
+c5ut_info:
+.Lc5ut:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5uA
+.Lc5uB:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $4,%ebp
+	jmp *(%ebp)
+.Lc5uA:
+	movl $c5uK_info,(%ebp)
+	movl 2(%esi),%esi
+	testw $7,%si
+	jne .Lc5uK
+.Lc5uL:
+	jmp *(%esi)
+.Lc5uD:
+	movl %eax,8(%ebx)
+	jmp *-8(%ebx)
+.text
+	.align 4,0x90
+	.long	0
+	.long	32
+c5uK_info:
+.Lc5uK:
+	addl $20,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5uU
+.Lc5uT:
+	movl 7(%esi),%eax
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	movl $base_GHCziBase_id_closure+1,-12(%edi)
+	movl %eax,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $4,%ebp
+	jmp *(%ebp)
+.Lc5uU:
+	movl $20,904(%ebx)
+	jmp stg_gc_unpt_r1
+	.size s5bV_info, .-s5bV_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zdfApplicativeParser2_info
+.type Parsing_zdfApplicativeParser2_info, @object
+Parsing_zdfApplicativeParser2_info:
+.Lc5uV:
+	addl $8,%edi
+	movl 24(%ebx),%eax
+	movl 16(%ebx),%ecx
+	movl 8(%ebx),%edx
+	cmpl 856(%ebx),%edi
+	ja .Lc5uZ
+.Lc5uY:
+	movl $s5bV_info,-4(%edi)
+	movl %edx,(%edi)
+	movl %eax,24(%ebx)
+	movl %ecx,16(%ebx)
+	leal -3(%edi),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_zdfAlternativeParser2_info
+.Lc5uZ:
+	movl $8,904(%ebx)
+	movl %eax,24(%ebx)
+	movl %ecx,16(%ebx)
+	movl %edx,8(%ebx)
+	movl $Parsing_zdfApplicativeParser2_closure,%esi
+	jmp *-8(%ebx)
+	.size Parsing_zdfApplicativeParser2_info, .-Parsing_zdfApplicativeParser2_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfApplicativeParserzuzdcztzg_closure
+.type Parsing_zdfApplicativeParserzuzdcztzg_closure, @object
+Parsing_zdfApplicativeParserzuzdcztzg_closure:
+	.long	Parsing_zdfApplicativeParserzuzdcztzg_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zdfApplicativeParserzuzdcztzg_info
+.type Parsing_zdfApplicativeParserzuzdcztzg_info, @object
+Parsing_zdfApplicativeParserzuzdcztzg_info:
+.Lc5vf:
+	movl 24(%ebx),%eax
+	movl %eax,24(%ebx)
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_zdfApplicativeParser2_info
+	.size Parsing_zdfApplicativeParserzuzdcztzg_info, .-Parsing_zdfApplicativeParserzuzdcztzg_info
+.data
+	.align 4
+.align 1
+.globl Parsing_chain1_closure
+.type Parsing_chain1_closure, @object
+Parsing_chain1_closure:
+	.long	Parsing_chain1_info
+.text
+	.align 4,0x90
+	.long	65541
+	.long	2
+	.long	12
+s5c4_info:
+.Lc5vU:
+	movl 8(%ebx),%eax
+	movl %eax,24(%ebx)
+	movl 3(%esi),%eax
+	movl %eax,16(%ebx)
+	movl 7(%esi),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_zdfApplicativeParser2_info
+	.size s5c4_info, .-s5c4_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_chain1_info
+.type Parsing_chain1_info, @object
+Parsing_chain1_info:
+.Lc5w4:
+	movl 24(%ebx),%eax
+	movl 16(%ebx),%ecx
+	movl 8(%ebx),%edx
+	movl %edx,64(%esp)
+	leal -12(%ebp),%edx
+	cmpl 840(%ebx),%edx
+	jb .Lc5w5
+.Lc5w6:
+	movl $c5vF_info,-12(%ebp)
+	movl %eax,8(%ebx)
+	movl 64(%esp),%eax
+	movl %eax,%esi
+	movl %eax,-8(%ebp)
+	movl %ecx,-4(%ebp)
+	addl $-12,%ebp
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	2
+	.long	32
+c5vF_info:
+.Lc5vF:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5w2
+.Lc5w3:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $12,%ebp
+	jmp *(%ebp)
+.text
+	.align 4,0x90
+	.long	2
+	.long	32
+c5vK_info:
+.Lc5vK:
+	addl $12,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5wm
+.Lc5wl:
+	movl 3(%esi),%eax
+	movl 7(%esi),%ecx
+	movl $s5c4_info,-8(%edi)
+	movl 4(%ebp),%edx
+	movl %edx,-4(%edi)
+	movl 8(%ebp),%edx
+	movl %edx,(%edi)
+	movl $c5w9_info,4(%ebp)
+	movl %ecx,16(%ebx)
+	leal -7(%edi),%ecx
+	movl %ecx,8(%ebx)
+	movl %eax,8(%ebp)
+	addl $4,%ebp
+	jmp Parsing_zdwa_info
+.Lc5w2:
+	movl $c5vK_info,(%ebp)
+	movl 2(%esi),%esi
+	testw $7,%si
+	jne .Lc5vK
+.Lc5vL:
+	jmp *(%esi)
+.Lc5w5:
+	movl %eax,24(%ebx)
+	movl %ecx,16(%ebx)
+	movl 64(%esp),%eax
+	movl %eax,8(%ebx)
+	movl $Parsing_chain1_closure,%esi
+	jmp *-8(%ebx)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5w9_info:
+.Lc5w9:
+	movl $c5wb_info,(%ebp)
+	testw $7,%si
+	jne .Lc5wb
+.Lc5wc:
+	jmp *(%esi)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5wb_info:
+.Lc5wb:
+	addl $32,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5wq
+.Lc5wp:
+	movl 3(%esi),%eax
+	movl 7(%esi),%ecx
+	movl $ghczmprim_GHCziTypes_ZC_con_info,-28(%edi)
+	movl 4(%ebp),%edx
+	movl %edx,-24(%edi)
+	movl %eax,-20(%edi)
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	leal -26(%edi),%eax
+	movl %eax,-12(%edi)
+	movl %ecx,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5wm:
+	movl $12,904(%ebx)
+	jmp stg_gc_unpt_r1
+.Lc5wq:
+	movl $32,904(%ebx)
+	jmp stg_gc_unpt_r1
+	.size Parsing_chain1_info, .-Parsing_chain1_info
+.data
+	.align 4
+.align 1
+.globl Parsing_chain_closure
+.type Parsing_chain_closure, @object
+Parsing_chain_closure:
+	.long	Parsing_chain_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_chain_info
+.type Parsing_chain_info, @object
+Parsing_chain_info:
+.Lc5wN:
+	movl 24(%ebx),%eax
+	movl %eax,24(%ebx)
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_chain1_info
+	.size Parsing_chain_info, .-Parsing_chain_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfApplicativeParser1_closure
+.type Parsing_zdfApplicativeParser1_closure, @object
+Parsing_zdfApplicativeParser1_closure:
+	.long	Parsing_zdfApplicativeParser1_info
+.text
+	.align 4,0x90
+	.long	65541
+	.long	1
+	.long	10
+s5cm_info:
+.Lc5xt:
+	movl 3(%esi),%esi
+	jmp stg_ap_0_fast
+	.size s5cm_info, .-s5cm_info
+.text
+	.align 4,0x90
+	.long	65541
+	.long	1
+	.long	10
+s5co_info:
+.Lc5xD:
+	movl 8(%ebx),%eax
+	leal -4(%ebp),%ecx
+	cmpl 840(%ebx),%ecx
+	jb .Lc5xE
+.Lc5xF:
+	movl $c5xe_info,-4(%ebp)
+	movl %eax,8(%ebx)
+	movl 3(%esi),%esi
+	addl $-4,%ebp
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	0
+	.long	32
+c5xe_info:
+.Lc5xe:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5xB
+.Lc5xC:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $4,%ebp
+	jmp *(%ebp)
+.text
+	.align 4,0x90
+	.long	0
+	.long	32
+c5xj_info:
+.Lc5xj:
+	addl $28,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5xN
+.Lc5xM:
+	movl 3(%esi),%eax
+	movl 7(%esi),%ecx
+	movl $s5cm_info,-24(%edi)
+	movl %eax,-20(%edi)
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	leal -23(%edi),%eax
+	movl %eax,-12(%edi)
+	movl %ecx,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $4,%ebp
+	jmp *(%ebp)
+.Lc5xB:
+	movl $c5xj_info,(%ebp)
+	movl 2(%esi),%esi
+	testw $7,%si
+	jne .Lc5xj
+.Lc5xk:
+	jmp *(%esi)
+.Lc5xE:
+	movl %eax,8(%ebx)
+	jmp *-8(%ebx)
+.Lc5xN:
+	movl $28,904(%ebx)
+	jmp stg_gc_unpt_r1
+	.size s5co_info, .-s5co_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zdfApplicativeParser1_info
+.type Parsing_zdfApplicativeParser1_info, @object
+Parsing_zdfApplicativeParser1_info:
+.Lc5xO:
+	addl $8,%edi
+	movl 24(%ebx),%eax
+	movl 16(%ebx),%ecx
+	movl 8(%ebx),%edx
+	cmpl 856(%ebx),%edi
+	ja .Lc5xS
+.Lc5xR:
+	movl $s5co_info,-4(%edi)
+	movl %edx,(%edi)
+	movl %eax,24(%ebx)
+	movl %ecx,16(%ebx)
+	leal -3(%edi),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_zdfAlternativeParser2_info
+.Lc5xS:
+	movl $8,904(%ebx)
+	movl %eax,24(%ebx)
+	movl %ecx,16(%ebx)
+	movl %edx,8(%ebx)
+	movl $Parsing_zdfApplicativeParser1_closure,%esi
+	jmp *-8(%ebx)
+	.size Parsing_zdfApplicativeParser1_info, .-Parsing_zdfApplicativeParser1_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfApplicativeParserzuzdczlzt_closure
+.type Parsing_zdfApplicativeParserzuzdczlzt_closure, @object
+Parsing_zdfApplicativeParserzuzdczlzt_closure:
+	.long	Parsing_zdfApplicativeParserzuzdczlzt_info
+.text
+	.align 4,0x90
+	.long	196631
+	.long	0
+	.long	15
+.globl Parsing_zdfApplicativeParserzuzdczlzt_info
+.type Parsing_zdfApplicativeParserzuzdczlzt_info, @object
+Parsing_zdfApplicativeParserzuzdczlzt_info:
+.Lc5yb:
+	movl 24(%ebx),%eax
+	movl %eax,24(%ebx)
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp Parsing_zdfApplicativeParser1_info
+	.size Parsing_zdfApplicativeParserzuzdczlzt_info, .-Parsing_zdfApplicativeParserzuzdczlzt_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfApplicativeParser_closure
+.type Parsing_zdfApplicativeParser_closure, @object
+Parsing_zdfApplicativeParser_closure:
+	.long	base_GHCziBase_DZCApplicative_static_info
+	.long	Parsing_zdfFunctorParser_closure+1
+	.long	Parsing_zdfAlternativeParser4_closure+2
+	.long	Parsing_zdfAlternativeParser2_closure+3
+	.long	Parsing_zdfApplicativeParser2_closure+3
+	.long	Parsing_zdfApplicativeParser1_closure+3
+	.long	1
+.data
+	.align 4
+.align 1
+r51E_closure:
+	.long	r51E_info
+.text
+	.align 4,0x90
+	.long	65541
+	.long	1
+	.long	10
+s5cr_info:
+.Lc5yW:
+	movl 8(%ebx),%eax
+	leal -12(%ebp),%ecx
+	cmpl 840(%ebx),%ecx
+	jb .Lc5yX
+.Lc5yY:
+	movl $c5yN_info,-12(%ebp)
+	movl %eax,8(%ebx)
+	movl %esi,%ecx
+	movl 3(%esi),%esi
+	movl %ecx,-8(%ebp)
+	movl %eax,-4(%ebp)
+	addl $-12,%ebp
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	2
+	.long	32
+c5yN_info:
+.Lc5yN:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5yU
+.Lc5yV:
+	addl $20,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5z5
+.Lc5z4:
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	movl $ghczmprim_GHCziTypes_ZMZN_closure+1,-12(%edi)
+	movl 8(%ebp),%eax
+	movl %eax,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $12,%ebp
+	jmp *(%ebp)
+.Lc5yU:
+	movl $c5z8_info,(%ebp)
+	movl 2(%esi),%esi
+	testw $7,%si
+	jne .Lc5z8
+.Lc5za:
+	jmp *(%esi)
+.Lc5yX:
+	movl %eax,8(%ebx)
+	jmp *-8(%ebx)
+.Lc5z5:
+	movl $20,904(%ebx)
+	jmp stg_gc_unpt_r1
+.text
+	.align 4,0x90
+	.long	2
+	.long	32
+c5z8_info:
+.Lc5z8:
+	movl $c5ze_info,(%ebp)
+	movl 7(%esi),%eax
+	movl %eax,8(%ebx)
+	movl 3(%esi),%eax
+	movl 4(%ebp),%esi
+	movl %eax,4(%ebp)
+	jmp s5cr_info
+.text
+	.align 4,0x90
+	.long	2
+	.long	32
+c5ze_info:
+.Lc5ze:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5zH
+.Lc5zI:
+	addl $20,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5zp
+.Lc5zo:
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	movl $ghczmprim_GHCziTypes_ZMZN_closure+1,-12(%edi)
+	movl 8(%ebp),%eax
+	movl %eax,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $12,%ebp
+	jmp *(%ebp)
+.Lc5zp:
+	movl $20,904(%ebx)
+	jmp stg_gc_unpt_r1
+.text
+	.align 4,0x90
+	.long	130
+	.long	32
+c5zs_info:
+.Lc5zs:
+	addl $32,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5zE
+.Lc5zD:
+	movl 3(%esi),%eax
+	movl 7(%esi),%ecx
+	movl $ghczmprim_GHCziTypes_ZC_con_info,-28(%edi)
+	movl 4(%ebp),%edx
+	movl %edx,-24(%edi)
+	movl %eax,-20(%edi)
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	leal -26(%edi),%eax
+	movl %eax,-12(%edi)
+	movl %ecx,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $12,%ebp
+	jmp *(%ebp)
+.Lc5zH:
+	movl $c5zs_info,(%ebp)
+	movl 2(%esi),%esi
+	testw $7,%si
+	jne .Lc5zs
+.Lc5zt:
+	jmp *(%esi)
+.Lc5zE:
+	movl $32,904(%ebx)
+	jmp stg_gc_unpt_r1
+	.size s5cr_info, .-s5cr_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+r51E_info:
+.Lc5zJ:
+	addl $8,%edi
+	movl 16(%ebx),%eax
+	movl 8(%ebx),%ecx
+	cmpl 856(%ebx),%edi
+	ja .Lc5zN
+.Lc5zM:
+	movl $s5cr_info,-4(%edi)
+	movl %ecx,(%edi)
+	movl %eax,8(%ebx)
+	leal -3(%edi),%esi
+	jmp s5cr_info
+.Lc5zN:
+	movl $8,904(%ebx)
+	movl %eax,16(%ebx)
+	movl %ecx,8(%ebx)
+	movl $r51E_closure,%esi
+	jmp *-8(%ebx)
+	.size r51E_info, .-r51E_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfAlternativeParserzuzdszddmmany_closure
+.type Parsing_zdfAlternativeParserzuzdszddmmany_closure, @object
+Parsing_zdfAlternativeParserzuzdszddmmany_closure:
+	.long	Parsing_zdfAlternativeParserzuzdszddmmany_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+.globl Parsing_zdfAlternativeParserzuzdszddmmany_info
+.type Parsing_zdfAlternativeParserzuzdszddmmany_info, @object
+Parsing_zdfAlternativeParserzuzdszddmmany_info:
+.Lc5Ab:
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp r51E_info
+	.size Parsing_zdfAlternativeParserzuzdszddmmany_info, .-Parsing_zdfAlternativeParserzuzdszddmmany_info
+.data
+	.align 4
+.align 1
+r51F_closure:
+	.long	r51F_info
+.text
+	.align 4,0x90
+	.long	65541
+	.long	1
+	.long	10
+s5cJ_info:
+.Lc5AT:
+	movl 8(%ebx),%eax
+	leal -12(%ebp),%ecx
+	cmpl 840(%ebx),%ecx
+	jb .Lc5AU
+.Lc5AV:
+	movl $c5AK_info,-8(%ebp)
+	movl %eax,8(%ebx)
+	movl %esi,%eax
+	movl 3(%esi),%esi
+	movl %eax,-4(%ebp)
+	addl $-8,%ebp
+	jmp stg_ap_p_fast
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5AK_info:
+.Lc5AK:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5AR
+.Lc5AS:
+	movl $base_GHCziBase_Nothing_closure+1,%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5AR:
+	movl $c5B1_info,(%ebp)
+	movl 2(%esi),%esi
+	testw $7,%si
+	jne .Lc5B1
+.Lc5B3:
+	jmp *(%esi)
+.Lc5AU:
+	movl %eax,8(%ebx)
+	jmp *-8(%ebx)
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5B1_info:
+.Lc5B1:
+	movl $c5B7_info,-4(%ebp)
+	movl 7(%esi),%eax
+	movl %eax,8(%ebx)
+	movl 3(%esi),%ecx
+	movl 4(%ebp),%esi
+	movl %eax,(%ebp)
+	movl %ecx,4(%ebp)
+	addl $-4,%ebp
+	jmp s5cJ_info
+.text
+	.align 4,0x90
+	.long	2
+	.long	32
+c5B7_info:
+.Lc5B7:
+	movl %esi,%eax
+	andl $7,%eax
+	cmpl $2,%eax
+	jae .Lc5BB
+.Lc5BC:
+	addl $32,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5Bj
+.Lc5Bi:
+	movl $ghczmprim_GHCziTypes_ZC_con_info,-28(%edi)
+	movl 8(%ebp),%eax
+	movl %eax,-24(%edi)
+	movl $ghczmprim_GHCziTypes_ZMZN_closure+1,-20(%edi)
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	leal -26(%edi),%eax
+	movl %eax,-12(%edi)
+	movl 4(%ebp),%eax
+	movl %eax,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $12,%ebp
+	jmp *(%ebp)
+.Lc5Bj:
+	movl $32,904(%ebx)
+	jmp stg_gc_unpt_r1
+.text
+	.align 4,0x90
+	.long	1
+	.long	32
+c5Bm_info:
+.Lc5Bm:
+	addl $32,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5By
+.Lc5Bx:
+	movl 3(%esi),%eax
+	movl 7(%esi),%ecx
+	movl $ghczmprim_GHCziTypes_ZC_con_info,-28(%edi)
+	movl 4(%ebp),%edx
+	movl %edx,-24(%edi)
+	movl %eax,-20(%edi)
+	movl $ghczmprim_GHCziTuple_Z2T_con_info,-16(%edi)
+	leal -26(%edi),%eax
+	movl %eax,-12(%edi)
+	movl %ecx,-8(%edi)
+	movl $base_GHCziBase_Just_con_info,-4(%edi)
+	leal -15(%edi),%eax
+	movl %eax,(%edi)
+	leal -2(%edi),%esi
+	addl $8,%ebp
+	jmp *(%ebp)
+.Lc5BB:
+	movl $c5Bm_info,4(%ebp)
+	movl 2(%esi),%esi
+	addl $4,%ebp
+	testw $7,%si
+	jne .Lc5Bm
+.Lc5Bn:
+	jmp *(%esi)
+.Lc5By:
+	movl $32,904(%ebx)
+	jmp stg_gc_unpt_r1
+	.size s5cJ_info, .-s5cJ_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+r51F_info:
+.Lc5BD:
+	addl $8,%edi
+	movl 16(%ebx),%eax
+	movl 8(%ebx),%ecx
+	cmpl 856(%ebx),%edi
+	ja .Lc5BH
+.Lc5BG:
+	movl $s5cJ_info,-4(%edi)
+	movl %ecx,(%edi)
+	movl %eax,8(%ebx)
+	leal -3(%edi),%esi
+	jmp s5cJ_info
+.Lc5BH:
+	movl $8,904(%ebx)
+	movl %eax,16(%ebx)
+	movl %ecx,8(%ebx)
+	movl $r51F_closure,%esi
+	jmp *-8(%ebx)
+	.size r51F_info, .-r51F_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfAlternativeParserzuzdszddmsome_closure
+.type Parsing_zdfAlternativeParserzuzdszddmsome_closure, @object
+Parsing_zdfAlternativeParserzuzdszddmsome_closure:
+	.long	Parsing_zdfAlternativeParserzuzdszddmsome_info
+.text
+	.align 4,0x90
+	.long	131087
+	.long	0
+	.long	15
+.globl Parsing_zdfAlternativeParserzuzdszddmsome_info
+.type Parsing_zdfAlternativeParserzuzdszddmsome_info, @object
+Parsing_zdfAlternativeParserzuzdszddmsome_info:
+.Lc5C4:
+	movl 16(%ebx),%eax
+	movl %eax,16(%ebx)
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp r51F_info
+	.size Parsing_zdfAlternativeParserzuzdszddmsome_info, .-Parsing_zdfAlternativeParserzuzdszddmsome_info
+.data
+	.align 4
+.align 1
+r51G_closure:
+	.long	r51G_info
+	.long	0
+.text
+	.align 4,0x90
+	.long	S5i5_srt-(r51G_info)+0
+	.long	65541
+	.long	0
+	.long	65551
+r51G_info:
+.Lc5Ch:
+	movl 8(%ebx),%eax
+	movl %eax,8(%ebx)
+	jmp base_GHCziErr_error_info
+	.size r51G_info, .-r51G_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfMonadParserzuzdczgzg_closure
+.type Parsing_zdfMonadParserzuzdczgzg_closure, @object
+Parsing_zdfMonadParserzuzdczgzg_closure:
+	.long	Parsing_zdfMonadParserzuzdczgzg_info
+	.long	0
+.text
+	.align 4,0x90
+	.long	65541
+	.long	1
+	.long	10
+s5d3_info:
+.Lc5CB:
+	movl 3(%esi),%esi
+	jmp stg_ap_0_fast
+	.size s5d3_info, .-s5d3_info
+.text
+	.align 4,0x90
+	.long	S5i5_srt-(Parsing_zdfMonadParserzuzdczgzg_info)+4
+	.long	131087
+	.long	0
+	.long	196623
+.globl Parsing_zdfMonadParserzuzdczgzg_info
+.type Parsing_zdfMonadParserzuzdczgzg_info, @object
+Parsing_zdfMonadParserzuzdczgzg_info:
+.Lc5CE:
+	movl 16(%ebx),%eax
+	movl 8(%ebx),%ecx
+	leal -12(%ebp),%edx
+	cmpl 840(%ebx),%edx
+	jb .Lc5CF
+.Lc5CG:
+	addl $8,%edi
+	cmpl 856(%ebx),%edi
+	ja .Lc5CI
+.Lc5CH:
+	movl $s5d3_info,-4(%edi)
+	movl %eax,(%edi)
+	movl $Parsing_zdfMonadParser_closure+1,8(%ebx)
+	movl $stg_ap_pp_info,-12(%ebp)
+	movl %ecx,-8(%ebp)
+	leal -3(%edi),%eax
+	movl %eax,-4(%ebp)
+	addl $-12,%ebp
+	jmp base_GHCziBase_zgzgze_info
+.Lc5CI:
+	movl $8,904(%ebx)
+.Lc5CF:
+	movl %eax,16(%ebx)
+	movl %ecx,8(%ebx)
+	movl $Parsing_zdfMonadParserzuzdczgzg_closure,%esi
+	jmp *-8(%ebx)
+	.size Parsing_zdfMonadParserzuzdczgzg_info, .-Parsing_zdfMonadParserzuzdczgzg_info
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfMonadParser_closure
+.type Parsing_zdfMonadParser_closure, @object
+Parsing_zdfMonadParser_closure:
+	.long	base_GHCziBase_DZCMonad_static_info
+	.long	Parsing_zdfApplicativeParser_closure+1
+	.long	Parsing_zdfMonadParser1_closure+3
+	.long	Parsing_zdfMonadParserzuzdczgzg_closure+2
+	.long	Parsing_zdfAlternativeParser4_closure+2
+	.long	r51G_closure+1
+	.long	0
+.data
+	.align 4
+.align 1
+.globl Parsing_zdfAlternativeParser_closure
+.type Parsing_zdfAlternativeParser_closure, @object
+Parsing_zdfAlternativeParser_closure:
+	.long	base_GHCziBase_DZCAlternative_static_info
+	.long	Parsing_zdfApplicativeParser_closure+1
+	.long	Parsing_failure1_closure+1
+	.long	Parsing_zdfAlternativeParser1_closure+3
+	.long	r51F_closure+2
+	.long	r51E_closure+2
+	.long	1
+.section .data
+	.align 4
+.align 1
+S5i5_srt:
+	.long	base_GHCziErr_error_closure
+	.long	Parsing_zdfMonadParser_closure
+	.long	Parsing_zdfMonadParserzuzdczgzg_closure
+.section .note.GNU-stack,"",@progbits
+.ident "GHC 7.10.3"
+
