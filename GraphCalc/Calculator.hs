@@ -70,4 +70,11 @@ main = do
 
 
 points :: Expr -> Double -> (Int,Int) -> [Point]
-points expr scale (width,height) = path [(pixToReal n)|n<-[0..300] ]
+points expr scale (width,height) = [(x,realToPix yPos x) | x <- [0..width]]
+              where
+                yPos x = eval expr (pixToReal (fromIntegral x))
+                pixToReal :: Double -> Double
+                pixToReal x = scale*(x-(width/2))
+
+                realToPix :: Double -> Double
+                realToPix y = -(y/scale)+(height/2)
