@@ -6,6 +6,7 @@ import Haste.Events
 import Haste.Graphics.Canvas
 
 import Pages
+import Parsing
 
 import Expr
 
@@ -24,7 +25,11 @@ readAndDraw el canvas = do
 
 
 readScaleDraw :: Elem -> Elem -> Canvas -> IO ()
-readScaleDraw expression scaling canvas =  scaerror "YOlo"---points (readExpr (select expression)) scale (canWidth,canHeight)
+readScaleDraw expression scaling canvas =  do
+                          Just c <- (getValue expression)
+                          Just s <- ((getValue scaling))
+                          g <- (render canvas (stroke (path (points (readExpr c) (s*0.04) (canWidth, canHeight)))))
+                          return g
 
 main = do
     -- Elements
@@ -32,8 +37,9 @@ main = do
     fx      <- mkHTML "<i>f</i>(<i>x</i>)="  -- The text "f(x)="
     input   <- mkInput 20 "x"                -- The formula input
     draw    <- mkButton "Draw graph"         -- The draw button
-    scaling <- mkInput 10 "y"
+    scaling <- mkInput 10 "Scale"
     scale   <- mkButton "Scale Graph"
+    zoomOut <- mkButton "Zoom Out"
     diff    <- mkButton "Differentiate"
       -- The markup "<i>...</i>" means that the text inside should be rendered
       -- in italics.
@@ -41,7 +47,7 @@ main = do
     -- Layout
     formula <- mkDiv
     row formula [fx,input]
-    column documentBody [canvas,formula,draw,scaling,scale,diff]
+    column documentBody [canvas,zoomOut,formula,draw,scaling,scale,diff]
 
     -- Styling
     setStyle documentBody "backgroundColor" "lightblue"
@@ -53,6 +59,7 @@ main = do
     -- Interaction
     Just can <- getCanvas canvas
     onEvent draw  Click $ \_    -> readAndDraw input can
+    onEvent zoomOut  Click $ \_    -> readAndDraw input can
     onEvent scale Click $ \_    -> readScaleDraw input scale can
     onEvent input KeyUp $ \code -> when (code==13) $ readAndDraw input can
       -- "Enter" key has code 13
