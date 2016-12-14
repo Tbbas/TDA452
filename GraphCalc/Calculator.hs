@@ -33,6 +33,12 @@ scaleAndDraw expr scale canvas = do
                             toWrite <- (render canvas (stroke (path (points (readExpr expr') (regularZoom*scale') (canWidth, canHeight)))))
                             return toWrite
 
+diffAndDraw :: Elem -> Canvas -> IO ()
+diffAndDraw el canvas = do
+                          Just c <- (getValue el)
+                          g <- (render canvas (stroke (path (points (differentiate (readExpr c)) regularZoom (canWidth, canHeight)))))
+                          return g
+
 main = do
     -- Elements
     canvas  <- mkCanvas canWidth canHeight   -- The drawing area
@@ -41,7 +47,7 @@ main = do
     draw    <- mkButton "Draw graph"         -- The draw button
     scaling <- mkInput 10 "Scale"
     scale   <- mkButton "Scale Graph"
-    zoomOut <- mkButton "Zoom Out"
+    zoomOut <- mkButton "Reset Scale"
     diff    <- mkButton "Differentiate"
       -- The markup "<i>...</i>" means that the text inside should be rendered
       -- in italics.
@@ -63,6 +69,7 @@ main = do
     onEvent draw  Click $ \_    -> readAndDraw input can
     onEvent zoomOut  Click $ \_    -> readAndDraw input can
     onEvent scale Click $ \_    -> scaleAndDraw input scaling can
+    onEvent diff Click $ \_     -> diffAndDraw input can
     onEvent input KeyUp $ \code -> when (code==13) $ readAndDraw input can
       -- "Enter" key has code 13
 

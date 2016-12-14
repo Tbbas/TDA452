@@ -149,8 +149,10 @@ differentiate expr = (simplify (diff expr))
       (Add  m (Var "x")) -> Add (Num 1.0) (diff m)
       (Add (Num n) m)     -> diff m
       (Add  m (Num n))     -> diff m
-      (Sin n)   -> Sin (diff n)
-      (Cos n)   -> Cos (diff n)
+      (Sin (Var "x"))   -> Cos (Var "x")
+      (Cos (Var "x"))   -> Mul (Num (-1) ) (Sin (Var "x"))
+      (Sin n)           ->  Mul(diff n) (Cos (n))
+      (Cos n)            -> Mul (diff n)  ((Mul (Num (-1)) (Sin(n))))
 
 numbOfVars :: Expr -> Double
 numbOfVars expr = case expr of
