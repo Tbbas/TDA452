@@ -136,20 +136,28 @@ simplify expr = case expr of
 
 
 differentiate :: Expr -> Expr
-differentiate expr = simplify(simplify (diff expr))
+differentiate expr = (simplify (diff expr))
   where
-    diff    :: Expr -> Expr
+    diff :: Expr -> Expr
     diff expr = case expr of
-      (Var x)   -> Num 1
-      (Mul n m) -> Mul (diffMul n) (diffMul m)
-      (Add n m) -> Add (diffAdd n) (diffAdd m)
+      (Var x)   -> (Num 1)
+      (Num n)   -> (Num 0)
+      (Mul (Var "x") m) -> Mul (Num (numbOfVars m + 1.0))  m
+      (Mul  n (Var "x")) -> Mul (Num (numbOfVars n + 1.0))  n
+      (Mul (Num n) m )   -> Mul (Num n) (diff m)
+      (Mul n (Num m))   -> Mul (Num m) (diff n)
+      (Add (Var "x")  m) -> Add (Num 1.0) (diff m)
+      (Add  m (Var "x")) -> Add (Num 1.0) (diff m)
+      (Add (Num n) m)     -> diff m
+      (Add  m (Num n))     -> diff m
       (Sin n)   -> Sin (diff n)
       (Cos n)   -> Cos (diff n)
-    diffMul :: Expr -> Expr
-    diffMul expr = case expr of
-      (Num n)   -> (Num n)
-      otherwise -> diff expr
-    diffAdd :: Expr -> Expr
-    diffAdd expr = case expr of
-      (Num n)   -> (Num 0)
-      otherwise -> diff expr
+
+numbOfVars :: Expr -> Double
+numbOfVars expr = case expr of
+  (Var "x")         -> 1.0
+  (Num n)           -> 0
+  (Mul (Var "x") m) -> 1.0 + (numbOfVars m)
+  (Mul (Num n) m)   -> numbOfVars m
+  (Mul n m)         -> (numbOfVars n) + (numbOfVars m)
+  (Add _ _)         -> 0.0
