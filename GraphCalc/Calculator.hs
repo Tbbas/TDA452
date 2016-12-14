@@ -19,7 +19,7 @@ readAndDraw el canvas = undefined
 
 
 readScaleDraw :: Elem -> Elem -> Canvas -> IO ()
-readScaleDraw expression scaling canvas =  scale = error "YOlo"---points (readExpr (select expression)) scale (canWidth,canHeight)
+readScaleDraw expression scaling canvas =  scaerror "YOlo"---points (readExpr (select expression)) scale (canWidth,canHeight)
 
 main = do
     -- Elements
