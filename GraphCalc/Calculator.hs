@@ -8,6 +8,7 @@ import Haste.Graphics.Canvas
 import Pages
 
 import Expr
+import Parsing
 
 import Data.Maybe
 
@@ -15,12 +16,20 @@ import Data.Maybe
 
 canWidth  = 300
 canHeight = 300
+regularZoom = 0.04
 
 readAndDraw :: Elem -> Canvas -> IO ()
 readAndDraw el canvas = do
                           Just c <- (getValue el)
-                          g <- (render canvas (stroke (path (points (readExpr c) 0.04 (canWidth, canHeight)))))
+                          g <- (render canvas (stroke (path (points (readExpr c) regularZoom (canWidth, canHeight)))))
                           return g
+
+scaleAndDraw :: Elem -> Elem -> Canvas -> IO ()
+scaleAndDraw expr scale canvas = do
+                            Just expr' <- (getValue expr)
+                            Just scale' <- (getValue scale)
+                            toWrite <- (render canvas (stroke (path (points (readExpr expr') (regularZoom*scale') (canWidth, canHeight)))))
+                            return toWrite
 
 main = do
     -- Elements
@@ -37,7 +46,7 @@ main = do
     -- Layout
     formula <- mkDiv
     row formula [fx,input]
-    column documentBody [canvas,formula,draw]
+    column documentBody [canvas,formula,draw,scaling,scale,diff]
 
     -- Styling
     setStyle documentBody "backgroundColor" "lightblue"
@@ -49,7 +58,7 @@ main = do
     -- Interaction
     Just can <- getCanvas canvas
     onEvent draw  Click $ \_    -> readAndDraw input can
-    onEvent scale Click $ \_    -> readAndDraw input can
+    onEvent scale Click $ \_    -> scaleAndDraw input scaling can
     onEvent input KeyUp $ \code -> when (code==13) $ readAndDraw input can
       -- "Enter" key has code 13
 
