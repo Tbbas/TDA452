@@ -9,13 +9,18 @@ import Pages
 
 import Expr
 
+import Data.Maybe
+
 
 
 canWidth  = 300
 canHeight = 300
 
 readAndDraw :: Elem -> Canvas -> IO ()
-readAndDraw el canvas = undefined
+readAndDraw el canvas = do
+                          Just c <- (getValue el)
+                          g <- (render canvas (stroke (path (points (readExpr c) 0.04 (canWidth, canHeight)))))
+                          return g
 
 
 readScaleDraw :: Elem -> Elem -> Canvas -> IO ()
