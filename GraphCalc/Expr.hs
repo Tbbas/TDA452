@@ -26,6 +26,7 @@ showExpr expr      = showFact expr
 
 showTerm :: Expr -> String
 showTerm (Mul m n) = showFact m ++ "*" ++ showFact n
+showTerm expr      = showFact expr
 
 showFact :: Expr -> String
 showFact expr = case expr of
@@ -104,7 +105,7 @@ expr = leftAssoc Add term (char '+')
 
 term = leftAssoc Mul factor (char '*')
 
-factor = (Num <$> readsP) <|> char '(' *> expr <* char ')' <|> function -- <|> (Var <$> failure <* (string "x"))
+factor = (Num <$> readsP) <|> char '(' *> expr <* char ')' <|> function  -- <|> ((string "x") *> Var)
 
 function =  (Sin <$> (string "sin" *> factor)) <|>
             (Cos <$> (string "cos" *> factor))
@@ -157,26 +158,18 @@ differentiate expr = (simplify (diff expr))
   where
     diff :: Expr -> Expr
     diff expr = case expr of
-      (Var x)   -> (Num 1)
+      (Var)     -> Num 1
       (Num n)   -> (Num 0)
-      (Mul (Var "x") m) -> Mul (Num (numbOfVars m + 1.0))  m
-      (Mul  n (Var "x")) -> Mul (Num (numbOfVars n + 1.0))  n
-      (Mul (Num n) m )   -> Mul (Num n) (diff m)
-      (Mul n (Num m))   -> Mul (Num m) (diff n)
-      (Add (Var "x")  m) -> Add (Num 1.0) (diff m)
-      (Add  m (Var "x")) -> Add (Num 1.0) (diff m)
-      (Add (Num n) m)     -> diff m
-      (Add  m (Num n))     -> diff m
-      (Sin (Var "x"))   -> Cos (Var "x")
-      (Cos (Var "x"))   -> Mul (Num (-1) ) (Sin (Var "x"))
+      (Mul m n) -> (Add (Mul (diff m) n) (Mul m (diff n)))
+      (Add m n) -> Add (diff m) (diff n)
       (Sin n)           ->  Mul(diff n) (Cos (n))
       (Cos n)            -> Mul (diff n)  ((Mul (Num (-1)) (Sin(n))))
 
-numbOfVars :: Expr -> Double
-numbOfVars expr = case expr of
-  (Var "x")         -> 1.0
-  (Num n)           -> 0
-  (Mul (Var "x") m) -> 1.0 + (numbOfVars m)
-  (Mul (Num n) m)   -> numbOfVars m
-  (Mul n m)         -> (numbOfVars n) + (numbOfVars m)
-  (Add _ _)         -> 0.0
+-- numbOfVars :: Expr -> Double
+-- numbOfVars expr = case expr of
+--   (Var "x")         -> 1.0
+--   (Num n)           -> 0
+--   (Mul (Var "x") m) -> 1.0 + (numbOfVars m)
+--   (Mul (Num n) m)   -> numbOfVars m
+--   (Mul n m)         -> (numbOfVars n) + (numbOfVars m)
+--   (Add _ _)         -> 0.0
