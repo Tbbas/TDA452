@@ -4,7 +4,7 @@ import Data.Maybe
 import Test.QuickCheck
 
 data Expr = Num Double
-          | Var Name
+          | Var
           | Mul Expr Expr
           | Add Expr Expr
           | Sin Expr
@@ -20,29 +20,49 @@ instance Show Expr where
    show = showExpr
 
 showExpr :: Expr -> String
-showExpr (Num f )     = show f
-showExpr (Mul m n)    = show m ++ "*" ++ show n
-showExpr (Add m n)    =
-  case m of
-    (Mul _ _) -> case n of
-      (Mul _ _) -> "(" ++ show m ++ ")+(" ++ show n ++ ")"
-      otherwise  -> "(" ++ show m ++ ")+" ++ show n
-    otherwise -> show m ++ "+" ++ show n
-showExpr (Sin x)      =
-  case x of
-    (Mul _ _ ) -> "sin(" ++ show x ++ ")"
-    (Add _ _ ) ->  "sin(" ++ show x ++ ")"
-    otherwise -> "sin" ++ show x
-showExpr (Cos x)      =
-  case x of
-    (Mul _ _ ) -> "cos(" ++ show x ++ ")"
-    (Add _ _ ) ->  "cos(" ++ show x ++ ")"
-    otherwise -> "cos" ++ show x
-showExpr (Var x)      = x
+showExpr (Add m n) = showTerm m ++ "+" ++ showTerm n
+showExpr (Mul m n) = showFact m ++ "*" ++ showFact n
+showExpr expr      = showFact expr
+
+showTerm :: Expr -> String
+showTerm (Mul m n) = showFact m ++ "*" ++ showFact n
+
+showFact :: Expr -> String
+showFact expr = case expr of
+  (Num n) -> show n
+  Var     -> "x"
+  (Sin n) -> showFunc (Sin n)
+  (Cos n) -> showFunc (Cos n)
+  otherwise -> "(" ++ showExpr expr ++ ")"
+
+showFunc :: Expr -> String
+showFunc expr = case expr of
+  (Sin x) -> "sin" ++ showFact x
+  (Cos x) -> "cos" ++ showFact x
+
+-- showExpr (Num f )     = show f
+-- showExpr (Mul m n)    = show m ++ "*" ++ show n
+-- showExpr (Add m n)    =
+--   case m of
+--     (Mul _ _) -> case n of
+--       (Mul _ _) -> "(" ++ show m ++ ")+(" ++ show n ++ ")"
+--       otherwise  -> "(" ++ show m ++ ")+" ++ show n
+--     otherwise -> show m ++ "+" ++ show n
+-- showExpr (Sin x)      =
+--   case x of
+--     (Mul _ _ ) -> "sin(" ++ show x ++ ")"
+--     (Add _ _ ) ->  "sin(" ++ show x ++ ")"
+--     otherwise -> "sin" ++ show x
+-- showExpr (Cos x)      =
+--   case x of
+--     (Mul _ _ ) -> "cos(" ++ show x ++ ")"
+--     (Add _ _ ) ->  "cos(" ++ show x ++ ")"
+--     otherwise -> "cos" ++ show x
+-- showExpr (Var x)      = x
 
 eval :: Expr -> Double -> Double
 eval (Num n) k      = n
-eval (Var x) k      = k
+eval (Var) k        = k
 eval (Mul m n) k    = (eval m k) * (eval n k)
 eval (Add n m) k    = (eval n k) + (eval m k)
 eval (Sin n) k      = sin (eval n k)
@@ -84,11 +104,9 @@ expr = leftAssoc Add term (char '+')
 
 term = leftAssoc Mul factor (char '*')
 
-factor = (Num <$> readsP) <|> char '(' *> expr <* char ')' <|> function <|> (Var <$> (string "x"))
+factor = (Num <$> readsP) <|> char '(' *> expr <* char ')' <|> function -- <|> (Var <$> failure <* (string "x"))
 
 function =  (Sin <$> (string "sin" *> factor)) <|>
-            (Cos <$> (string "cos" *> factor)) <|>
-            (Sin <$> (string "sin" *> factor)) <|>
             (Cos <$> (string "cos" *> factor))
 
 leftAssoc :: (t->t->t) -> Parser t -> Parser sep -> Parser t
@@ -105,10 +123,10 @@ leftAssoc op item sep = do  i:is <- chain item sep
 range = 100
 
 arbExpr :: Int -> Gen Expr
-arbExpr size = frequency [(1,rNum), (1, rVar), (size, rBin size), (size, rFunc size)]
+arbExpr size = frequency [(1,rNum), (size, rBin size), (size, rFunc size)]
   where
     rNum = elements [Num n | n<-[1..range]]
-    rVar = elements [Var n |n <-["x"]]
+    -- rVar =
     rBin size = do op <- elements[Add,Mul]
                    e1 <- arbExpr (size `div` 2)
                    e2 <- arbExpr (size `div` 2)
@@ -120,7 +138,7 @@ arbExpr size = frequency [(1,rNum), (1, rVar), (size, rBin size), (size, rFunc s
 simplify :: Expr -> Expr
 simplify expr = case expr of
   (Num m)         -> Num m
-  (Var x)         -> Var x
+  (Var)           -> Var
   (Mul (Num 0) _) -> Num 0
   (Mul (Num 1) m) -> simplify m
   (Mul _ (Num 0)) -> Num 0
